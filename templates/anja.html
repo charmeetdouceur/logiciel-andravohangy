@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livraison Andravohangy — Anja</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+body{background:#F0F2F5;font-size:13px;color:#0D1B3E;}
+.topbar{background:#0D1B3E;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.topbar h1{font-size:16px;font-weight:800;}
+.container{max-width:1500px;margin:0 auto;padding:14px;}
+.banner{background:#0D1B3E;border-radius:12px;padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:14px;}
+.bitem label{font-size:10px;color:#90CAF9;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
+.bitem p{font-size:22px;font-weight:800;color:#fff;}
+/* ALERTES */
+.alert-rg{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.alert-or{background:#FFF3E0;border-left:5px solid #F57C00;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#E65100;font-size:12px;font-weight:700;}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px;}
+.stat{background:#fff;border-radius:10px;padding:10px 12px;text-align:center;border-top:4px solid #eee;}
+.stat label{font-size:10px;color:#666;text-transform:uppercase;display:block;margin-bottom:4px;font-weight:600;}
+.stat p{font-size:24px;font-weight:800;}
+/* FRAIS */
+.frais-box{background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:14px;border-left:5px solid #F57C00;}
+.frais-title{font-size:11px;font-weight:800;color:#0D1B3E;margin-bottom:10px;text-transform:uppercase;}
+.frais-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+.frais-item{background:#FFF3E0;border-radius:8px;padding:8px 12px;border:1px solid #FFB74D;}
+.frais-item strong{display:block;color:#0D1B3E;font-size:12px;font-weight:800;}
+.frais-item span{font-size:12px;color:#E65100;font-weight:700;}
+/* TOOLBAR */
+.toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center;}
+.toolbar input,.toolbar select{font-size:12px;padding:7px 10px;border-radius:7px;border:1.5px solid #ddd;background:#fff;}
+.btn-or{background:#F57C00;color:#fff;border:none;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:800;}
+.btn-bn{background:#0D1B3E;color:#fff;border:none;padding:8px 14px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:700;}
+.btn-vt{background:#2E7D32;color:#fff;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;}
+.btn-rg{background:#C62828;color:#fff;border:none;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:11px;}
+/* FILTRES */
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.fbtn{font-size:11px;padding:5px 12px;border-radius:20px;border:2px solid #ddd;background:#fff;cursor:pointer;color:#555;font-weight:600;}
+/* TABLEAU */
+.tbl-wrap{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:10px;color:#fff;background:#0D1B3E;padding:9px 10px;text-align:left;white-space:nowrap;font-weight:700;}
+td{padding:9px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-size:12px;}
+/* COULEURS STATUTS — TOUTE LA LIGNE */
+.row-liv td{background:#E8F5E9 !important;}
+.row-mm td{background:#E3F2FD !important;}
+.row-att td{background:#FFF8E1 !important;}
+.row-ann td{background:#FFEBEE !important;}
+.row-ret td{background:#F3E5F5 !important;}
+.row-chg td{background:#FBE9E7 !important;}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.b-liv{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;}
+.b-mm{background:#E3F2FD;color:#0D47A1;border:2px solid #42A5F5;}
+.b-att{background:#FFF3E0;color:#E65100;border:2px solid #FFB74D;}
+.b-ann{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;}
+.b-ret{background:#F3E5F5;color:#4A148C;border:2px solid #AB47BC;}
+.b-chg{background:#FBE9E7;color:#BF360C;border:2px solid #FF7043;}
+/* TYPE PILLS */
+.type-pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#0D1B3E;color:#fff;margin:1px;}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;}
+.modal h2{font-size:16px;font-weight:800;color:#0D1B3E;margin-bottom:16px;}
+.fg{margin-bottom:12px;}
+.fg label{font-size:11px;color:#555;display:block;margin-bottom:3px;font-weight:700;}
+.fg select,.fg textarea{width:100%;padding:8px 10px;border-radius:7px;border:1.5px solid #ddd;font-size:13px;}
+.motif-box{display:none;background:#FFF3E0;border-radius:8px;padding:12px;margin-top:8px;border:1.5px solid #FFB74D;}
+.motif-box.show{display:block;}
+.btn-save{background:#0D1B3E;color:#fff;border:none;padding:10px 20px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;}
+.btn-cancel{background:#fff;color:#555;border:1.5px solid #ddd;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:13px;}
+/* QR MODAL */
+.qr-modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:320px;text-align:center;}
+.qr-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 12px;}
+.qr-box{width:120px;height:120px;border:2px solid #ddd;border-radius:10px;margin:12px auto;display:flex;align-items:center;justify-content:center;}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid #eee;align-items:center;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <h1>🚚 Livraison Andravohangy</h1>
+    <div style="font-size:11px;color:#90CAF9;margin-top:2px;">Tableau Anja — {{today}}</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="color:#fff;font-size:13px;font-weight:600;" id="clock"></span>
+    <a href="/moi" style="text-decoration:none;"><button class="btn-bn">🔐 Christina</button></a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- Bannière CA -->
+<div class="banner">
+  <div class="bitem"><label>💵 Espèces à verser samedi</label><p style="color:#69F0AE;">{{"{:,}".format(ca_esp).replace(",",".")}} Ar</p></div>
+  <div class="bitem"><label>📱 Mobile money reçu</label><p style="color:#40C4FF;">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</p></div>
+  <div class="bitem"><label>➖ Frais MM déduits</label><p style="color:#FFD740;">{{"{:,}".format(frais_mm).replace(",",".")}} Ar</p></div>
+  <div class="bitem"><label>✅ Net MM après frais</label><p style="color:#69F0AE;">{{"{:,}".format(ca_mm - frais_mm).replace(",",".")}} Ar</p></div>
+</div>
+
+<!-- Alertes retours non confirmés -->
+{% for cmd in commandes if cmd.statut in ['ann','ret','chg'] and not cmd.retour_anja %}
+<div class="alert-rg">
+  ⚠️ Retour NON confirmé — <strong>{{cmd.livreur}}</strong> / {{cmd.client}} — <em>{{cmd.motif or 'Sans motif'}}</em>
+  <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}" style="margin-left:auto;">
+    <button type="submit" class="btn-vt">✓ Confirmer réception pièces</button>
+  </form>
+</div>
+{% endfor %}
+
+{% for cmd in commandes if cmd.retour_anja==1 and cmd.retour_christina==0 and cmd.statut in ['ann','ret','chg'] %}
+<div class="alert-or">📦 Retour confirmé Anja ✓ — En attente réception Christina — <strong>{{cmd.livreur}}</strong> / {{cmd.client}}</div>
+{% endfor %}
+
+<!-- Stats du jour -->
+{% set cnt={'liv':0,'mm':0,'att':0,'ann':0,'ret':0,'chg':0} %}
+{% for cmd in commandes if cmd.date==today %}
+  {% if cmd.statut=='liv' %}{% set _=cnt.update({'liv':cnt.liv+1}) %}
+  {% elif cmd.statut in ['mvola','orange','airtel'] %}{% set _=cnt.update({'mm':cnt.mm+1}) %}
+  {% elif cmd.statut=='att' %}{% set _=cnt.update({'att':cnt.att+1}) %}
+  {% elif cmd.statut=='ann' %}{% set _=cnt.update({'ann':cnt.ann+1}) %}
+  {% elif cmd.statut=='ret' %}{% set _=cnt.update({'ret':cnt.ret+1}) %}
+  {% elif cmd.statut=='chg' %}{% set _=cnt.update({'chg':cnt.chg+1}) %}
+  {% endif %}
+{% endfor %}
+<div class="stats">
+  <div class="stat" style="border-top-color:#2E7D32;"><label>Livré espèces</label><p style="color:#2E7D32;">{{cnt.liv}}</p></div>
+  <div class="stat" style="border-top-color:#1565C0;"><label>Mobile money</label><p style="color:#1565C0;">{{cnt.mm}}</p></div>
+  <div class="stat" style="border-top-color:#F57C00;"><label>En attente</label><p style="color:#F57C00;">{{cnt.att}}</p></div>
+  <div class="stat" style="border-top-color:#C62828;"><label>Annulés</label><p style="color:#C62828;">{{cnt.ann}}</p></div>
+  <div class="stat" style="border-top-color:#6A1B9A;"><label>Retours conf.</label><p style="color:#6A1B9A;">{{cnt.ret}}</p></div>
+  <div class="stat" style="border-top-color:#BF360C;"><label>Chgt qté</label><p style="color:#BF360C;">{{cnt.chg}}</p></div>
+</div>
+
+<!-- Frais livreurs du jour -->
+{% if frais_jour %}
+<div class="frais-box">
+  <div class="frais-title">💰 Frais livreurs aujourd'hui</div>
+  <div class="frais-grid">
+    {% for f in frais_jour %}
+    <div class="frais-item">
+      <strong>{{f.livreur}}</strong>
+      <span>{{f.nb}} livraison(s) — {{"{:,}".format(f.tf or 0).replace(",",".")}} Ar</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+
+<!-- QR PAIEMENT GROUPÉ PAR LIVREUR -->
+{% set livreurs_att = [] %}
+{% for cmd in commandes if cmd.statut in ['att','chg'] %}
+  {% if cmd.livreur not in livreurs_att %}{% set _ = livreurs_att.append(cmd.livreur) %}{% endif %}
+{% endfor %}
+{% if livreurs_att %}
+<div style="background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:14px;border-left:5px solid #F57C00;">
+  <div style="font-size:11px;font-weight:800;color:#0D1B3E;margin-bottom:10px;text-transform:uppercase;">📱 QR Paiement — Livreurs en attente</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+    {% for livreur in livreurs_att %}
+    {% set total_att = namespace(val=0) %}
+    {% for cmd in commandes if cmd.statut in ['att','chg'] and cmd.livreur==livreur %}
+      {% set total_att.val = total_att.val + cmd.total %}
+    {% endfor %}
+    <button onclick="showQRGroupe('{{livreur}}')" style="background:#0D1B3E;color:#fff;border:none;border-radius:8px;padding:10px 12px;cursor:pointer;text-align:left;">
+      <div style="font-size:12px;font-weight:800;">{{livreur}}</div>
+      <div style="font-size:11px;color:#FFD740;margin-top:2px;">{{"{:,}".format(total_att.val).replace(",",".")}} Ar à encaisser</div>
+      <div style="font-size:10px;color:#90CAF9;margin-top:4px;">📱 Afficher QR</div>
+    </button>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <input type="text" id="search" placeholder="🔍 Client, lieu, livreur..." oninput="filterTable()" style="width:220px;">
+  <select id="fil-livreur" onchange="filterTable()">
+    <option value="">Tous livreurs</option>
+    {% for l in livreurs %}<option>{{l}}</option>{% endfor %}
+  </select>
+  <select id="fil-date" onchange="filterTable()">
+    <option value="">Toutes dates</option>
+    <option value="{{today}}" selected>Aujourd'hui</option>
+  </select>
+</div>
+
+<!-- Filtres statut -->
+<div class="filters">
+  <span style="font-size:10px;color:#888;font-weight:800;margin-right:4px;">STATUT :</span>
+  <button class="fbtn" id="fb-all" onclick="setFilter('',this)" style="background:#0D1B3E;color:#fff;border-color:#0D1B3E;">Tous</button>
+  <button class="fbtn" onclick="setFilter('liv',this)">✅ Livré espèces</button>
+  <button class="fbtn" onclick="setFilter('mm',this)">📱 Mobile money</button>
+  <button class="fbtn" onclick="setFilter('att',this)">⏳ En attente</button>
+  <button class="fbtn" onclick="setFilter('ann',this)">❌ Annulé</button>
+  <button class="fbtn" onclick="setFilter('ret',this)">🔄 Retour conf.</button>
+  <button class="fbtn" onclick="setFilter('chg',this)">📝 Chgt qté</button>
+</div>
+
+<!-- Tableau principal -->
+<div class="tbl-wrap">
+<table id="main-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Client</th>
+      <th>Contact</th>
+      <th>Lieu</th>
+      <th>Livreur</th>
+      <th>Articles</th>
+      <th>Montant total</th>
+      <th>Frais</th>
+      <th>Statut</th>
+      <th>Motif annulation</th>
+      <th>Retour pièces</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for cmd in commandes %}
+  {% if cmd.statut=='liv' %}{% set rc='row-liv' %}
+  {% elif cmd.statut in ['mvola','orange','airtel'] %}{% set rc='row-mm' %}
+  {% elif cmd.statut=='att' %}{% set rc='row-att' %}
+  {% elif cmd.statut=='ann' %}{% set rc='row-ann' %}
+  {% elif cmd.statut=='ret' %}{% set rc='row-ret' %}
+  {% elif cmd.statut=='chg' %}{% set rc='row-chg' %}
+  {% else %}{% set rc='' %}{% endif %}
+  <tr class="{{rc}}" data-statut="{{cmd.statut}}" data-livreur="{{cmd.livreur}}" data-date="{{cmd.date}}" data-search="{{cmd.client}} {{cmd.adresse}} {{cmd.livreur}}">
+    <td style="white-space:nowrap;font-weight:700;">{{cmd.date}}</td>
+    <td><strong>{{cmd.client}}</strong></td>
+    <td style="font-size:11px;color:#555;">{{cmd.contact}}</td>
+    <td style="font-size:11px;">{{cmd.adresse}}</td>
+    <td><strong style="color:#1a2d5a;">{{cmd.livreur}}</strong></td>
+    <td>
+      {% for t in cmd.types.split(' + ') if t != '—' %}
+        <span class="type-pill">{{t}}</span>
+      {% endfor %}
+      {% if cmd.types=='—' %}<span style="color:#ccc;">—</span>{% endif %}
+    </td>
+    <td style="font-size:15px;font-weight:800;color:#1B5E20;">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</td>
+    <td style="font-weight:700;color:#F57C00;">{{"{:,}".format(cmd.frais).replace(",",".")}} Ar</td>
+    <td>
+      {% if cmd.statut=='liv' %}<span class="badge b-liv">✅ Livré espèces</span>
+      {% elif cmd.statut=='mvola' %}<span class="badge b-mm">📱 Mvola</span>
+      {% elif cmd.statut=='orange' %}<span class="badge b-mm">📱 Orange</span>
+      {% elif cmd.statut=='airtel' %}<span class="badge b-mm">📱 Airtel</span>
+      {% elif cmd.statut=='att' %}<span class="badge b-att">⏳ En attente</span>
+      {% elif cmd.statut=='ann' %}<span class="badge b-ann">❌ Annulé</span>
+      {% elif cmd.statut=='ret' %}<span class="badge b-ret">🔄 Retour conf.</span>
+      {% elif cmd.statut=='chg' %}<span class="badge b-chg">📝 Chgt qté</span>
+      {% endif %}
+    </td>
+    <td style="font-size:11px;color:#555;max-width:130px;">
+      {% if cmd.motif %}<strong>{{cmd.motif}}</strong>{% if cmd.motif=='Autre' and cmd.motif_autre %}<br><em style="color:#888;">{{cmd.motif_autre}}</em>{% endif %}{% else %}<span style="color:#ccc;">—</span>{% endif %}
+    </td>
+    <td>
+      {% if cmd.statut in ['ann','ret','chg'] %}
+        {% if cmd.retour_anja %}
+          <div style="font-size:11px;">
+            <span style="color:#2E7D32;font-weight:800;">✓ Anja</span><br>
+            {% if cmd.retour_christina %}<span style="color:#2E7D32;font-weight:800;">✓ Christina</span>
+            {% else %}<span style="color:#F57C00;font-weight:700;">⏳ Christina...</span>{% endif %}
+          </div>
+        {% else %}
+          <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}">
+            <button type="submit" class="btn-vt">✓ Je confirme</button>
+          </form>
+        {% endif %}
+      {% else %}<span style="color:#ddd;">—</span>{% endif %}
+    </td>
+
+    <td style="display:flex;gap:4px;">
+      <button class="btn-or" style="font-size:11px;padding:5px 9px;" onclick="openStatut({{cmd.id}},'{{cmd.statut}}')">Modifier</button>
+      <form method="POST" action="/anja/supprimer/{{cmd.id}}" onsubmit="return confirm('Supprimer ?')">
+        <button type="submit" class="btn-rg">✕</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<!-- Légende -->
+<div class="legend">
+  <span style="font-size:10px;color:#888;font-weight:800;">LÉGENDE :</span>
+  <span class="badge b-liv">✅ Livré + espèces</span>
+  <span class="badge b-mm">📱 Mobile money (province)</span>
+  <span class="badge b-att">⏳ En attente</span>
+  <span class="badge b-ann">❌ Annulé</span>
+  <span class="badge b-ret">🔄 Retour confirmé Anja</span>
+  <span class="badge b-chg">📝 Changement quantité</span>
+</div>
+</div>
+
+<!-- Modal modifier statut -->
+<div class="modal-bg" id="modal-statut">
+<div class="modal">
+  <h2>Modifier le statut</h2>
+  <form method="POST" id="statut-form">
+    <div class="fg">
+      <label>Nouveau statut</label>
+      <select name="statut" id="s-statut" onchange="toggleMotif(this.value)">
+        <option value="att">⏳ En attente</option>
+        <option value="liv">✅ Livré espèces</option>
+        <option value="mvola">📱 Mvola</option>
+        <option value="orange">📱 Orange Money</option>
+        <option value="airtel">📱 Airtel Money</option>
+        <option value="ann">❌ Annulé</option>
+        <option value="ret">🔄 Retour confirmé</option>
+        <option value="chg">📝 Changement quantité</option>
+      </select>
+    </div>
+    <div class="motif-box" id="motif-box">
+      <div class="fg">
+        <label>Raison d'annulation / retour</label>
+        <select name="motif" id="s-motif" onchange="toggleAutre(this.value)">
+          <option value="">-- Choisir --</option>
+          {% for m in motifs %}<option>{{m}}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="fg" id="autre-box" style="display:none;">
+        <label>Préciser</label>
+        <textarea name="motif_autre" rows="2" placeholder="Décrivez le motif..."></textarea>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+      <button type="button" class="btn-cancel" onclick="closeStatut()">Annuler</button>
+      <button type="submit" class="btn-save">Enregistrer</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<!-- Modal QR -->
+<div class="modal-bg" id="modal-qr">
+<div class="qr-modal">
+  <div class="qr-avatar" id="qr-avatar">MB</div>
+  <h2 id="qr-livreur" style="font-size:18px;font-weight:800;color:#0D1B3E;margin-bottom:4px;"></h2>
+  <p id="qr-client" style="font-size:12px;color:#666;margin-bottom:4px;"></p>
+  <p id="qr-montant" style="font-size:20px;font-weight:800;color:#1B5E20;margin-bottom:12px;"></p>
+  <div class="qr-box" id="qr-svg"></div>
+  <p style="font-size:11px;color:#888;margin-bottom:16px;line-height:1.6;">Le livreur montre ce QR à Anja.<br>Anja confirme la réception du paiement.</p>
+  <div style="display:flex;gap:8px;justify-content:center;">
+    <button class="btn-vt" style="font-size:13px;padding:8px 16px;" id="qr-confirmer">✓ Confirmer paiement reçu</button>
+    <button class="btn-cancel" onclick="closeQR()">Fermer</button>
+  </div>
+</div>
+</div>
+
+<script>
+let activeFilter='';
+const LIVREUR_COLORS={'Mbola':'#1565C0','Patrick':'#2E7D32','Sarobidy Nomena':'#854F0B','Toky':'#4A148C','Solo':'#BF360C','Daniel':'#006064','Andry':'#0D1B3E','Ando':'#C62828'};
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>{b.style.background='';b.style.color='#555';b.style.borderColor='#ddd';});
+  btn.style.background='#0D1B3E';btn.style.color='#fff';btn.style.borderColor='#0D1B3E';
+  filterTable();
+}
+function filterTable(){
+  const s=(document.getElementById('search').value||'').toLowerCase();
+  const l=document.getElementById('fil-livreur').value;
+  const d=document.getElementById('fil-date').value;
+  document.querySelectorAll('#main-table tbody tr').forEach(r=>{
+    const st=r.dataset.statut;
+    let mF=true;
+    if(activeFilter==='mm') mF=['mvola','orange','airtel'].includes(st);
+    else if(activeFilter) mF=st===activeFilter;
+    r.style.display=(mF&&(!l||r.dataset.livreur===l)&&(!d||r.dataset.date===d)&&(!s||(r.dataset.search||'').toLowerCase().includes(s)))?'':'none';
+  });
+}
+function openStatut(id,statut){
+  document.getElementById('statut-form').action='/anja/statut/'+id;
+  document.getElementById('s-statut').value=statut;
+  toggleMotif(statut);
+  document.getElementById('modal-statut').classList.add('open');
+}
+function closeStatut(){document.getElementById('modal-statut').classList.remove('open');}
+document.getElementById('modal-statut').addEventListener('click',function(e){if(e.target===this)closeStatut();});
+function toggleMotif(v){document.getElementById('motif-box').classList.toggle('show',['ann','ret','chg'].includes(v));}
+function toggleAutre(v){document.getElementById('autre-box').style.display=v==='Autre'?'block':'none';}
+
+let currentQRId=null;
+function showQR(id,livreur,client,total,frais){
+  currentQRId=id;
+  const col=LIVREUR_COLORS[livreur]||'#0D1B3E';
+  const ini=livreur.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('qr-avatar').textContent=ini;
+  document.getElementById('qr-avatar').style.background=col+'22';
+  document.getElementById('qr-avatar').style.color=col;
+  document.getElementById('qr-avatar').style.border='2px solid '+col;
+  document.getElementById('qr-livreur').textContent=livreur;
+  document.getElementById('qr-client').textContent='Client: '+client;
+  document.getElementById('qr-montant').textContent=total.toLocaleString('fr-FR')+' Ar (frais: '+frais.toLocaleString('fr-FR')+' Ar)';
+  document.getElementById('qr-svg').innerHTML=genQR(livreur+'-'+id,col);
+  document.getElementById('qr-confirmer').onclick=function(){confirmerQR(id);};
+  document.getElementById('modal-qr').classList.add('open');
+}
+function closeQR(){document.getElementById('modal-qr').classList.remove('open');}
+document.getElementById('modal-qr').addEventListener('click',function(e){if(e.target===this)closeQR();});
+function confirmerQR(id){
+  const f=document.createElement('form');
+  f.method='POST';f.action='/anja/qr/'+id;
+  document.body.appendChild(f);f.submit();
+}
+function genQR(data,col){
+  const n=10,cs=11,sz=n*cs;
+  const h=data.split('').reduce((a,c)=>((a<<5)-a)+c.charCodeAt(0),0);
+  let s=`<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}" xmlns="http://www.w3.org/2000/svg">`;
+  for(let r=0;r<n;r++) for(let c=0;c<n;c++){
+    const corner=(r<3&&c<3)||(r<3&&c>n-4)||(r>n-4&&c<3);
+    const v=Math.abs((h*(r*n+c+1)*2654435761)>>>0)%100;
+    if(corner||v>42) s+=`<rect x="${c*cs}" y="${r*cs}" width="${cs}" height="${cs}" fill="${col}"/>`;
+  }
+  s+=`<rect x="0" y="0" width="${3*cs}" height="${3*cs}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
+  s+=`<rect x="${(n-3)*cs}" y="0" width="${3*cs}" height="${3*cs}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
+  s+=`<rect x="0" y="${(n-3)*cs}" width="${3*cs}" height="${3*cs}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
+  return s+'</svg>';
+}
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR');}
+tick();setInterval(tick,1000);
+
+// QR GROUPÉ PAR LIVREUR
+const COMMANDES_DATA = {{ commandes|tojson }};
+const LIVREUR_COLORS_MAP = {
+  'Mbola':'#1565C0','Patrick':'#2E7D32','Sarobidy Nomena':'#854F0B',
+  'Toky':'#4A148C','Solo':'#BF360C','Daniel':'#006064',
+  'Andry':'#0D1B3E','Ando':'#C62828'
+};
+
+function showQRGroupe(livreur){
+  const cmds = COMMANDES_DATA.filter(c => c.livreur===livreur && ['att','chg'].includes(c.statut));
+  const total = cmds.reduce((s,c) => s+c.total, 0);
+  const col = LIVREUR_COLORS_MAP[livreur] || '#0D1B3E';
+  const ini = livreur.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const ids = cmds.map(c=>c.id);
+  
+  let rows = cmds.map(c=>`
+    <tr>
+      <td style="font-size:11px;padding:5px 8px;">${c.client}</td>
+      <td style="font-size:11px;padding:5px 8px;">${c.adresse||'—'}</td>
+      <td style="font-size:11px;padding:5px 8px;font-weight:800;color:#1B5E20;">${c.total.toLocaleString('fr-FR')} Ar</td>
+      <td style="font-size:10px;padding:5px 8px;color:#F57C00;">${c.statut==='chg'?'Chgt qté':''}</td>
+    </tr>`).join('');
+
+  document.getElementById('qr-groupe-content').innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="width:54px;height:54px;border-radius:50%;background:${col}22;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:${col};margin:0 auto 8px;">${ini}</div>
+      <div style="font-size:18px;font-weight:800;color:#0D1B3E;">${livreur}</div>
+      <div style="font-size:22px;font-weight:800;color:#1B5E20;margin:8px 0;">${total.toLocaleString('fr-FR')} Ar</div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:14px;background:#f9f9f9;border-radius:8px;overflow:hidden;">
+      <thead><tr style="background:#0D1B3E;">
+        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Client</th>
+        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Lieu</th>
+        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Montant</th>
+        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Note</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="text-align:center;margin-bottom:14px;">
+      <div id="qr-svg-groupe" style="width:130px;height:130px;border:2px solid #ddd;border-radius:10px;margin:0 auto;display:flex;align-items:center;justify-content:center;"></div>
+      <div style="font-size:11px;color:#888;margin-top:8px;">${livreur} scanne ce QR avec son téléphone<br>Il voit le total à remettre à Anja</div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;">
+      <button onclick="confirmerPaiementGroupe(${JSON.stringify(ids)},'${livreur}')" style="background:#2E7D32;color:#fff;border:none;padding:10px 20px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;">✓ Confirmer paiement reçu — ${total.toLocaleString('fr-FR')} Ar</button>
+      <button onclick="document.getElementById('modal-qr-groupe').classList.remove('open')" style="background:#fff;color:#555;border:1.5px solid #ddd;padding:10px 14px;border-radius:7px;cursor:pointer;">Fermer</button>
+    </div>`;
+  
+  document.getElementById('qr-svg-groupe').innerHTML = genQR(livreur+'-'+Date.now(), col);
+  document.getElementById('modal-qr-groupe').classList.add('open');
+}
+
+function confirmerPaiementGroupe(ids, livreur){
+  if(!confirm('Confirmer le paiement de ' + livreur + ' pour ' + ids.length + ' livraison(s) ?')) return;
+  const f = document.createElement('form');
+  f.method = 'POST';
+  f.action = '/anja/qr_groupe';
+  f.style.display = 'none';
+  ids.forEach(id => {
+    const inp = document.createElement('input');
+    inp.type = 'hidden';
+    inp.name = 'ids';
+    inp.value = id;
+    f.appendChild(inp);
+  });
+  document.body.appendChild(f);
+  f.submit();
+}
+</script>
+
+<!-- Modal QR Groupé -->
+<div class="modal-bg" id="modal-qr-groupe">
+<div class="modal" style="max-width:480px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <h2 style="margin:0;">📱 QR Paiement groupé</h2>
+    <button onclick="document.getElementById('modal-qr-groupe').classList.remove('open')" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888;">✕</button>
+  </div>
+  <div id="qr-groupe-content"></div>
+</div>
+</div>
+</body>
+</html>

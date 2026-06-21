@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau Christina 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+body{background:#F0F2F5;font-size:13px;color:#0D1B3E;}
+.topbar{background:#0D1B3E;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.topbar h1{font-size:16px;font-weight:800;}
+.nav{background:#1a2d5a;display:flex;overflow-x:auto;}
+.nav a{color:#90CAF9;padding:11px 16px;text-decoration:none;font-size:12px;white-space:nowrap;border-bottom:3px solid transparent;font-weight:600;}
+.nav a:hover,.nav a.act{color:#fff;border-bottom-color:#F57C00;}
+.container{max-width:1400px;margin:0 auto;padding:14px;}
+.ca-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px;}
+.ca-dark{background:#0D1B3E;color:#fff;border-radius:10px;padding:14px;border-bottom:4px solid #F57C00;}
+.ca-light{background:#fff;border-radius:10px;padding:14px;border:1px solid #e0e0e0;border-bottom:4px solid #eee;}
+.ca-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;display:block;font-weight:700;}
+.ca-dark .ca-lbl{color:#90CAF9;}
+.ca-light .ca-lbl{color:#888;}
+.ca-val{font-size:18px;font-weight:800;}
+.sec{font-size:13px;font-weight:800;color:#0D1B3E;margin:20px 0 10px;padding-bottom:6px;border-bottom:3px solid #0D1B3E;}
+.alert-rg{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:700;}
+.cloture-bar{background:#1a2d5a;color:#fff;border-radius:8px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.cloture-bar span{font-size:11px;color:#90CAF9;}
+.cloture-bar strong{font-size:13px;}
+.cmd-row{background:#fff;border-radius:8px;border:1px solid #e0e0e0;margin-bottom:6px;overflow:hidden;}
+.cmd-row.not-sent{border-left:5px solid #F57C00;}
+.cmd-row.sent{border-left:5px solid #2E7D32;}
+.cmd-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;flex-wrap:wrap;gap:6px;}
+.cmd-header:hover{background:#f8f9fa;}
+.cmd-name{font-size:13px;font-weight:800;color:#0D1B3E;}
+.cmd-info{font-size:11px;color:#666;margin-top:2px;}
+.cmd-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.cmd-total{font-size:16px;font-weight:800;color:#1B5E20;}
+.cmd-body{display:none;border-top:1px solid #f0f0f0;padding:12px 14px;background:#f9f9fa;}
+.cmd-body.open{display:block;}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.b-or{background:#FFF3E0;color:#E65100;border:1.5px solid #FFB74D;}
+.b-vt{background:#E8F5E9;color:#1B5E20;border:1.5px solid #66BB6A;}
+.b-rg{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
+.b-bl{background:#E3F2FD;color:#0D47A1;border:1.5px solid #42A5F5;}
+.b-mv{background:#F3E5F5;color:#6A1B9A;border:1.5px solid #CE93D8;}
+.b-og{background:#FBE9E7;color:#BF360C;border:1.5px solid #FFAB91;}
+.b-ai{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
+.b-coord-ok{background:#E8F5E9;color:#1B5E20;border:1.5px solid #66BB6A;}
+.b-coord-no{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
+.arts-table{width:100%;border-collapse:collapse;margin:8px 0;}
+.arts-table th{font-size:10px;color:#fff;background:#1a2d5a;padding:5px 8px;text-align:left;font-weight:700;}
+.arts-table td{font-size:11px;padding:5px 8px;border-bottom:1px solid #eee;vertical-align:middle;}
+.form-add{background:#F8F9FA;border:2px dashed #ccc;border-radius:8px;padding:10px;margin-top:10px;}
+.fi{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end;}
+.fg{display:flex;flex-direction:column;gap:2px;}
+.fg label{font-size:10px;color:#555;font-weight:800;}
+.fg input,.fg select{font-size:12px;padding:6px 8px;border-radius:6px;border:1.5px solid #ddd;background:#fff;}
+.btn-or{background:#F57C00;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;}
+.btn-vt{background:#2E7D32;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;}
+.btn-sm{font-size:11px;padding:3px 8px;border-radius:5px;border:1.5px solid #ddd;background:#fff;cursor:pointer;}
+.btn-del{background:#C62828;color:#fff;border:none;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px;}
+.tbl-wrap{overflow-x:auto;background:#fff;border-radius:8px;border:1px solid #e0e0e0;margin-bottom:10px;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:10px;color:#fff;background:#0D1B3E;padding:7px 9px;text-align:left;white-space:nowrap;font-weight:700;}
+td{padding:7px 9px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-size:12px;}
+.vrow{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
+.vrow:last-child{border-bottom:none;}
+.total-row{font-weight:800;font-size:14px;border-top:3px solid #0D1B3E;margin-top:6px;padding-top:8px;}
+.card{background:#fff;border-radius:10px;border:1px solid #e0e0e0;padding:14px;margin-bottom:10px;}
+.ret-card{background:#fff;border-radius:10px;border-left:5px solid #C62828;border:1px solid #e0e0e0;border-left:5px solid #C62828;padding:14px;margin-bottom:10px;}
+.new-cmd-card{background:#fff;border-radius:10px;border:2px dashed #F57C00;padding:14px;margin-bottom:10px;}
+.dep-cat{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;background:#E3F2FD;color:#0D47A1;border:1.5px solid #42A5F5;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div><h1>📊 Tableau Christina 2026</h1></div>
+  <div style="display:flex;gap:8px;">
+    <a href="/anja" style="text-decoration:none;"><button class="btn-or">🚚 Tableau Anja</button></a>
+    <a href="/logout" style="text-decoration:none;"><button class="btn-sm">Déconnexion</button></a>
+  </div>
+</div>
+<div class="nav">
+  <a href="#dash" class="act" onclick="goTo(event,this,'dash')">🏠 Dashboard</a>
+  <a href="#commandes" onclick="goTo(event,this,'commandes')">📦 Commandes</a>
+  <a href="#retours" onclick="goTo(event,this,'retours')">🔄 Retours</a>
+  <a href="#ventes" onclick="goTo(event,this,'ventes')">🛒 Ventes directes</a>
+  <a href="#finances" onclick="goTo(event,this,'finances')">💰 Finances</a>
+  <a href="#depenses" onclick="goTo(event,this,'depenses')">💸 Dépenses</a>
+</div>
+
+<div class="container">
+
+<!-- DASHBOARD -->
+<div id="dash">
+<div class="cloture-bar">
+  <div><span>Clôture des ventes journalières</span><br><strong id="cloture-msg">⏳ Calcul...</strong></div>
+  <div style="text-align:right;"><span>Heure actuelle</span><br><strong id="heure-now" style="font-size:16px;color:#fff;"></strong></div>
+</div>
+
+{% if retours %}<div class="alert-rg">🔄 {{retours|length}} retour(s) en attente de ta confirmation !</div>{% endif %}
+
+{% set today_str = today %}
+{% set ca_jour = namespace(total=0) %}
+{% for cmd in commandes if cmd.date == today_str %}
+  {% set ca_jour.total = ca_jour.total + cmd.total %}
+{% endfor %}
+{% set ca_jour_vd = namespace(total=0) %}
+{% for v in ventes if v.date == today_str %}
+  {% set ca_jour_vd.total = ca_jour_vd.total + v.qte * v.prix_unitaire %}
+{% endfor %}
+{% set dep_jour = namespace(total=0) %}
+{% for d in depenses if d.date == today_str %}
+  {% set dep_jour.total = dep_jour.total + d.montant %}
+{% endfor %}
+
+<div class="ca-grid">
+  <div class="ca-dark"><span class="ca-lbl">📅 CA du jour</span><div class="ca-val" style="color:#FFD740;">{{"{:,}".format(ca_jour.total + ca_jour_vd.total).replace(",",".")}} Ar</div></div>
+  <div class="ca-dark"><span class="ca-lbl">💸 Dépenses du jour</span><div class="ca-val" style="color:#EF5350;">{{"{:,}".format(dep_jour.total).replace(",",".")}} Ar</div></div>
+  <div class="ca-dark"><span class="ca-lbl">💵 CA espèces total</span><div class="ca-val" style="color:#69F0AE;">{{"{:,}".format(ca_liv).replace(",",".")}} Ar</div></div>
+  <div class="ca-dark"><span class="ca-lbl">📱 CA mobile money</span><div class="ca-val" style="color:#40C4FF;">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</div></div>
+  <div class="ca-light"><span class="ca-lbl">🛒 CA ventes directes</span><div class="ca-val" style="color:#F57C00;">{{"{:,}".format(ca_vd).replace(",",".")}} Ar</div></div>
+  <div class="ca-light"><span class="ca-lbl">📊 CA total</span><div class="ca-val" style="color:#2E7D32;">{{"{:,}".format(ca_liv+ca_mm+ca_vd).replace(",",".")}} Ar</div></div>
+  <div class="ca-light"><span class="ca-lbl">💰 Total versé boss</span><div class="ca-val">{{"{:,}".format(tot_vers).replace(",",".")}} Ar</div></div>
+  <div class="ca-light"><span class="ca-lbl">💸 Dépenses totales</span><div class="ca-val" style="color:#C62828;">{{"{:,}".format(tot_dep).replace(",",".")}} Ar</div></div>
+</div>
+</div>
+
+<!-- COMMANDES -->
+<div id="commandes">
+<div class="sec">📦 Commandes vers Anja</div>
+<div class="new-cmd-card">
+  <div style="font-size:12px;font-weight:800;color:#F57C00;margin-bottom:10px;">➕ Nouvelle commande client</div>
+  <form method="POST" action="/moi/commande/nouvelle">
+    <div class="fi">
+      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
+      <div class="fg"><label>Client</label><input type="text" name="client" required style="width:130px;"></div>
+      <div class="fg"><label>Contact</label><input type="text" name="contact" style="width:120px;"></div>
+      <div class="fg"><label>Adresse</label><input type="text" name="adresse" style="width:150px;"></div>
+      <div class="fg"><label>Livreur</label>
+        <select name="livreur">{% for l in livreurs %}<option>{{l}}</option>{% endfor %}</select>
+      </div>
+      <div class="fg"><label>Frais (Ar)</label><input type="number" name="frais" value="5000" style="width:80px;"></div>
+      <div class="fg"><label>Paiement</label>
+        <select name="paiement">
+          <option value="espece">💵 Espèces</option>
+          <option value="mvola">📱 Mvola</option>
+          <option value="orange">📱 Orange Money</option>
+          <option value="airtel">📱 Airtel Money</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-or" style="align-self:flex-end;">Créer</button>
+    </div>
+  </form>
+</div>
+
+{% for cmd in commandes %}
+{% set sent=cmd.envoye_anja==1 %}
+{% set is_mm=cmd.paiement in ['mvola','orange','airtel'] %}
+<div class="cmd-row {{'sent' if sent else 'not-sent'}}" id="cmd-{{cmd.id}}">
+  <div class="cmd-header" onclick="toggleCmd({{cmd.id}})">
+    <div>
+      <div class="cmd-name">
+        {{cmd.client}}
+        &nbsp;{% if sent %}<span class="badge b-vt">✓ Anja</span>{% else %}<span class="badge b-or">Non envoyé</span>{% endif %}
+        &nbsp;{% if cmd.paiement=='mvola' %}<span class="badge b-mv">📱 Mvola</span>
+        {% elif cmd.paiement=='orange' %}<span class="badge b-og">📱 Orange</span>
+        {% elif cmd.paiement=='airtel' %}<span class="badge b-ai">📱 Airtel</span>
+        {% else %}<span class="badge b-vt">💵 Espèces</span>{% endif %}
+        {% if is_mm %}
+          &nbsp;{% if cmd.coordonne=='recu' %}<span class="badge b-coord-ok">✅ Coordonné reçu</span>
+          {% else %}<span class="badge b-coord-no">❌ Coordonné non reçu</span>{% endif %}
+        {% endif %}
+      </div>
+      <div class="cmd-info">{{cmd.date}} — {{cmd.adresse}} — <strong>{{cmd.livreur}}</strong> — Frais: <strong style="color:#F57C00;">{{"{:,}".format(cmd.frais).replace(",",".")}} Ar</strong> — <em>{{cmd.types}}</em></div>
+    </div>
+    <div class="cmd-right">
+      <span class="cmd-total">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</span>
+      <span style="font-size:18px;color:#888;">▾</span>
+    </div>
+  </div>
+  <div class="cmd-body" id="body-{{cmd.id}}">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+      {% if not sent %}
+      <form method="POST" action="/moi/commande/envoyer/{{cmd.id}}" style="display:inline;">
+        <button type="submit" class="btn-vt">🚚 Envoyer à Anja</button>
+      </form>
+      {% endif %}
+      {% if is_mm %}
+      <form method="POST" action="/moi/commande/coordonne/{{cmd.id}}" style="display:inline;">
+        {% if cmd.coordonne=='recu' %}
+          <input type="hidden" name="coordonne" value="non_recu">
+          <button type="submit" class="btn-sm" style="color:#C62828;">Marquer non reçu</button>
+        {% else %}
+          <input type="hidden" name="coordonne" value="recu">
+          <button type="submit" class="btn-vt">✅ Coordonné reçu</button>
+        {% endif %}
+      </form>
+      {% endif %}
+      <form method="POST" action="/moi/commande/supprimer/{{cmd.id}}" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
+        <button type="submit" class="btn-del">✕ Supprimer</button>
+      </form>
+    </div>
+    {% if cmd.articles %}
+    <table class="arts-table">
+      <thead><tr><th>Réf</th><th>Catégorie</th><th>Quantité</th><th>PU (Ar)</th><th>Total</th>{% if not sent %}<th></th>{% endif %}</tr></thead>
+      <tbody>
+      {% for a in cmd.articles %}
+      <tr>
+        <td><span class="badge b-bl">{{a.ref}}</span></td>
+        <td>{{a.categorie}}</td>
+        <td style="font-weight:800;">{{a.qte}}</td>
+        <td>{{"{:,}".format(a.prix_unitaire).replace(",",".")}}</td>
+        <td style="font-weight:800;color:#1B5E20;">{{"{:,}".format(a.qte*a.prix_unitaire).replace(",",".")}} Ar</td>
+        {% if not sent %}
+        <td><form method="POST" action="/moi/article/supprimer/{{a.id}}" onsubmit="return confirm('Supprimer ?')">
+          <button type="submit" class="btn-del">✕</button></form></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% if not sent %}
+    <div class="form-add">
+      <form method="POST" action="/moi/article/ajouter">
+        <input type="hidden" name="commande_id" value="{{cmd.id}}">
+        <div class="fi">
+          <div class="fg"><label>Référence</label>
+            <select name="ref" id="ref-{{cmd.id}}" onchange="setPU(this,'{{cmd.id}}')">
+              {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
+            </select>
+          </div>
+          <input type="hidden" name="categorie" id="cat-{{cmd.id}}" value="Charme & Douceur">
+          <div class="fg"><label>Quantité</label><input type="number" name="qte" value="1" min="1" style="width:65px;"></div>
+          <div class="fg"><label>PU (Ar)</label><input type="number" name="pu" id="pu-{{cmd.id}}" value="5000" style="width:90px;"></div>
+          <button type="submit" class="btn-or">+ Article</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+</div>
+
+<!-- RETOURS -->
+<div id="retours">
+<div class="sec">🔄 Retours à confirmer — Christina</div>
+{% if retours %}
+{% for r in retours %}
+<div class="ret-card">
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+    <div>
+      <div style="font-size:14px;font-weight:800;">{{r.client}} — {{r.livreur}}</div>
+      <div style="font-size:11px;color:#666;">{{r.date}} — {{r.adresse}}</div>
+      <div style="font-size:11px;color:#C62828;margin-top:2px;">Motif: <strong>{{r.motif or '—'}}</strong>{% if r.motif_autre %} : {{r.motif_autre}}{% endif %}</div>
+    </div>
+    <span class="badge b-rg">⚠️ À confirmer</span>
+  </div>
+  <table class="arts-table">
+    <thead><tr><th>Réf</th><th>Catégorie</th><th>Qté retournée</th></tr></thead>
+    <tbody>
+    {% for a in r.articles %}
+    <tr>
+      <td><span class="badge b-bl">{{a.ref}}</span></td>
+      <td>{{a.categorie}}</td>
+      <td style="font-weight:800;color:#C62828;">{{a.qte}} pcs</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div style="background:#E8F5E9;border-radius:8px;padding:10px;margin-top:10px;border:1.5px solid #66BB6A;">
+    <div style="font-size:11px;font-weight:800;color:#1B5E20;margin-bottom:8px;">✅ Confirme que tu as bien reçu les articles physiquement :</div>
+    <form method="POST" action="/moi/retour/confirmer/{{r.id}}">
+      <input type="hidden" name="montant_retour" value="0">
+      <button type="submit" class="btn-vt">✓ J'ai reçu les articles — Confirmer</button>
+    </form>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<div style="color:#888;font-size:13px;padding:10px 0;">Aucun retour en attente.</div>
+{% endif %}
+</div>
+
+<!-- VENTES DIRECTES -->
+<div id="ventes">
+<div class="sec">🛒 Ventes directes (client vient chez toi)</div>
+<div class="card">
+  <form method="POST" action="/moi/vente/ajouter">
+    <div class="fi">
+      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
+      <div class="fg"><label>Client</label><input type="text" name="client" style="width:110px;"></div>
+      <div class="fg"><label>Contact</label><input type="text" name="contact" style="width:110px;"></div>
+      <div class="fg"><label>Référence</label>
+        <select name="ref" id="ref-vd" onchange="setPUvd(this)">
+          {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
+        </select>
+      </div>
+      <input type="hidden" name="categorie" id="cat-vd" value="Charme & Douceur">
+      <div class="fg"><label>Qté</label><input type="number" name="qte" value="1" min="1" style="width:55px;"></div>
+      <div class="fg"><label>PU (Ar)</label><input type="number" name="pu" id="pu-vd" value="5000" style="width:85px;"></div>
+      <div class="fg"><label>Paiement</label>
+        <select name="paiement">
+          <option value="espece">💵 Espèces</option>
+          <option value="mvola">📱 Mvola</option>
+          <option value="orange">📱 Orange</option>
+          <option value="airtel">📱 Airtel</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
+    </div>
+  </form>
+</div>
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>Date</th><th>Client</th><th>Contact</th><th>Réf</th><th>Catégorie</th><th>Qté</th><th>PU</th><th>Total</th><th>Paiement</th><th>Action</th></tr></thead>
+  <tbody>
+  {% for v in ventes %}
+  <tr>
+    <td>{{v.date}}</td><td>{{v.client or '—'}}</td><td style="font-size:11px;">{{v.contact or '—'}}</td>
+    <td><span class="badge b-bl">{{v.ref}}</span></td>
+    <td style="font-size:11px;">{{v.categorie}}</td>
+    <td style="font-weight:800;">{{v.qte}}</td>
+    <td>{{"{:,}".format(v.prix_unitaire).replace(",",".")}}</td>
+    <td style="font-weight:800;color:#1B5E20;">{{"{:,}".format(v.qte*v.prix_unitaire).replace(",",".")}} Ar</td>
+    <td>
+      {% if v.paiement=='mvola' %}<span class="badge b-mv">📱 Mvola</span>
+      {% elif v.paiement=='orange' %}<span class="badge b-og">📱 Orange</span>
+      {% elif v.paiement=='airtel' %}<span class="badge b-ai">📱 Airtel</span>
+      {% else %}<span class="badge b-vt">💵 Espèces</span>{% endif %}
+    </td>
+    <td><form method="POST" action="/moi/vente/supprimer/{{v.id}}" onsubmit="return confirm('Supprimer ?')">
+      <button type="submit" class="btn-del">✕</button></form></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- FINANCES -->
+<div id="finances">
+<div class="sec">💰 Versements du lundi</div>
+<div class="card">
+  <form method="POST" action="/moi/versement/ajouter">
+    <div class="fi">
+      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
+      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
+      <div class="fg"><label>Notes</label><input type="text" name="notes" value="Versement semaine" style="width:170px;"></div>
+      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
+    </div>
+  </form>
+  <div style="margin-top:10px;">
+  {% for v in versements %}
+  <div class="vrow">
+    <div><strong>{{v.date}}</strong> — {{v.notes}}</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="badge b-vt">{{"{:,}".format(v.montant).replace(",",".")}} Ar</span>
+      <form method="POST" action="/moi/versement/supprimer/{{v.id}}" onsubmit="return confirm('Supprimer ?')">
+        <button type="submit" class="btn-del" style="font-size:10px;padding:2px 6px;">✕</button></form>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="vrow total-row"><div>Total versé</div><span style="font-size:16px;">{{"{:,}".format(tot_vers).replace(",",".")}} Ar</span></div>
+  </div>
+</div>
+
+<div class="sec">💎 Excédents</div>
+<div class="card">
+  <form method="POST" action="/moi/excedent/ajouter">
+    <div class="fi">
+      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
+      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
+      <div class="fg"><label>Notes</label><input type="text" name="notes" style="width:170px;"></div>
+      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
+    </div>
+  </form>
+  <div style="margin-top:10px;">
+  {% for e in excedents %}
+  <div class="vrow"><div><strong>{{e.date}}</strong> — {{e.notes}}</div><span class="badge b-or">{{"{:,}".format(e.montant).replace(",",".")}} Ar</span></div>
+  {% else %}<div style="color:#888;font-size:12px;padding:6px 0;">Aucun excédent.</div>{% endfor %}
+  </div>
+</div>
+</div>
+
+<!-- DEPENSES -->
+<div id="depenses">
+<div class="sec">💸 Dépenses</div>
+<div class="card">
+  <form method="POST" action="/moi/depense/ajouter">
+    <div class="fi">
+      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
+      <div class="fg"><label>Catégorie</label>
+        <select name="categorie">
+          <option>🍽️ Repas</option>
+          <option>📱 Crédit téléphone</option>
+          <option>📦 Emballages</option>
+          <option>🏠 Loyer</option>
+          <option>💡 Électricité</option>
+          <option>📶 Wifi</option>
+          <option>📝 Autre</option>
+        </select>
+      </div>
+      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
+      <div class="fg"><label>Notes</label><input type="text" name="notes" style="width:160px;"></div>
+      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
+    </div>
+  </form>
+</div>
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>Date</th><th>Catégorie</th><th>Montant (Ar)</th><th>Notes</th><th>Action</th></tr></thead>
+  <tbody>
+  {% for d in depenses %}
+  <tr>
+    <td>{{d.date}}</td>
+    <td><span class="dep-cat">{{d.categorie}}</span></td>
+    <td style="font-weight:800;color:#C62828;">{{"{:,}".format(d.montant).replace(",",".")}} Ar</td>
+    <td style="font-size:11px;color:#666;">{{d.notes or '—'}}</td>
+    <td><form method="POST" action="/moi/depense/supprimer/{{d.id}}" onsubmit="return confirm('Supprimer ?')">
+      <button type="submit" class="btn-del">✕</button></form></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div style="padding:10px 14px;font-weight:800;font-size:14px;border-top:2px solid #0D1B3E;display:flex;justify-content:space-between;">
+  <span>Total dépenses</span>
+  <span style="color:#C62828;">{{"{:,}".format(tot_dep).replace(",",".")}} Ar</span>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+function toggleCmd(id){document.getElementById('body-'+id).classList.toggle('open');}
+function setPU(sel,id){
+  const o=sel.options[sel.selectedIndex];
+  document.getElementById('pu-'+id).value=o.dataset.pu||5000;
+  document.getElementById('cat-'+id).value=o.dataset.cat||'';
+}
+function setPUvd(sel){
+  const o=sel.options[sel.selectedIndex];
+  document.getElementById('pu-vd').value=o.dataset.pu||5000;
+  document.getElementById('cat-vd').value=o.dataset.cat||'';
+}
+function goTo(e,a,id){
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav a').forEach(x=>x.classList.remove('act'));
+  a.classList.add('act');
+}
+function updateCloture(){
+  const now=new Date();
+  const h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+  document.getElementById('heure-now').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const msg=document.getElementById('cloture-msg');
+  if(h<18){
+    const reste=18*60-(h*60+m);
+    msg.textContent='⏳ Clôture dans '+Math.floor(reste/60)+'h'+String(reste%60).padStart(2,'0')+'min';
+    msg.style.color='#FFD740';
+  } else {
+    msg.textContent='🔒 Ventes clôturées à 18h00';
+    msg.style.color='#EF5350';
+  }
+}
+updateCloture();setInterval(updateCloture,1000);
+</script>
+</body>
+</html>
