@@ -4,467 +4,643 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tableau Christina 2026</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
-body{background:#F0F2F5;font-size:13px;color:#0D1B3E;}
-.topbar{background:#0D1B3E;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.topbar h1{font-size:16px;font-weight:800;}
-.nav{background:#1a2d5a;display:flex;overflow-x:auto;}
-.nav a{color:#90CAF9;padding:11px 16px;text-decoration:none;font-size:12px;white-space:nowrap;border-bottom:3px solid transparent;font-weight:600;}
-.nav a:hover,.nav a.act{color:#fff;border-bottom-color:#F57C00;}
-.container{max-width:1400px;margin:0 auto;padding:14px;}
-.ca-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px;}
-.ca-dark{background:#0D1B3E;color:#fff;border-radius:10px;padding:14px;border-bottom:4px solid #F57C00;}
-.ca-light{background:#fff;border-radius:10px;padding:14px;border:1px solid #e0e0e0;border-bottom:4px solid #eee;}
-.ca-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;display:block;font-weight:700;}
-.ca-dark .ca-lbl{color:#90CAF9;}
-.ca-light .ca-lbl{color:#888;}
-.ca-val{font-size:18px;font-weight:800;}
-.sec{font-size:13px;font-weight:800;color:#0D1B3E;margin:20px 0 10px;padding-bottom:6px;border-bottom:3px solid #0D1B3E;}
-.alert-rg{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:700;}
-.cloture-bar{background:#1a2d5a;color:#fff;border-radius:8px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.cloture-bar span{font-size:11px;color:#90CAF9;}
-.cloture-bar strong{font-size:13px;}
-.cmd-row{background:#fff;border-radius:8px;border:1px solid #e0e0e0;margin-bottom:6px;overflow:hidden;}
-.cmd-row.not-sent{border-left:5px solid #F57C00;}
-.cmd-row.sent{border-left:5px solid #2E7D32;}
-.cmd-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;flex-wrap:wrap;gap:6px;}
+:root{--bn:#0D1B3E;--or:#F57C00;--vt:#1B5E20;--rg:#B71C1C;--bl:#0D47A1;}
+body{font-family:Arial,sans-serif;background:#f0f2f5;font-size:13px;}
+.sidebar{min-height:100vh;background:linear-gradient(180deg,var(--bn) 0%,#1a2d5a 100%);width:240px;position:fixed;top:0;left:0;z-index:100;transition:width .3s;overflow:hidden;}
+.sidebar.collapsed{width:60px;}
+.sidebar .logo{text-align:center;color:#fff;padding:16px 10px;border-bottom:1px solid rgba(255,255,255,0.15);margin-bottom:5px;}
+.sidebar .logo h5{font-size:13px;font-weight:700;margin:5px 0 0;white-space:nowrap;}
+.sidebar .logo small{font-size:10px;color:#90CAF9;white-space:nowrap;}
+.sidebar.collapsed .logo h5,.sidebar.collapsed .logo small,.sidebar.collapsed a span,.sidebar.collapsed .menu-sec{display:none;}
+.sidebar a{display:flex;align-items:center;color:rgba(255,255,255,0.85);padding:9px 18px;text-decoration:none;border-left:3px solid transparent;font-size:12px;white-space:nowrap;transition:all .2s;}
+.sidebar a:hover,.sidebar a.active{background:rgba(255,255,255,0.12);color:#fff;border-left-color:var(--or);}
+.sidebar a i{width:20px;min-width:20px;margin-right:10px;font-size:13px;}
+.sidebar.collapsed a{padding:12px;justify-content:center;}
+.sidebar.collapsed a i{margin:0;}
+.menu-sec{font-size:10px;color:rgba(255,255,255,0.4);padding:8px 18px 2px;text-transform:uppercase;letter-spacing:1px;}
+.toggle-btn{position:fixed;top:50%;left:240px;transform:translateY(-50%);background:var(--or);border:none;color:#fff;width:18px;height:44px;border-radius:0 8px 8px 0;cursor:pointer;z-index:101;transition:left .3s;display:flex;align-items:center;justify-content:center;}
+.toggle-btn.col{left:60px;}
+.main{margin-left:240px;transition:margin-left .3s;}
+.main.expanded{margin-left:60px;}
+.topbar{background:#fff;padding:12px 24px;border-bottom:2px solid var(--or);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;}
+.topbar .brand{font-weight:800;color:var(--bn);font-size:14px;}
+.content{padding:20px 24px;}
+.stat-card{border-radius:12px;padding:16px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.2);margin-bottom:12px;}
+.stat-card .num{font-size:1.4rem;font-weight:800;}
+.stat-card .lbl{font-size:11px;opacity:.9;margin-top:2px;}
+.section-title{font-weight:700;color:var(--bn);font-size:14px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--bn);}
+.card{border:none;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);margin-bottom:10px;}
+.cmd-card{border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);margin-bottom:8px;overflow:hidden;background:#fff;}
+.cmd-card.sent{border-left:5px solid #66BB6A;}
+.cmd-card.unsent{border-left:5px solid #FFB74D;}
+.cmd-card.ret{border-left:5px solid #EF5350;}
+.cmd-header{padding:12px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
 .cmd-header:hover{background:#f8f9fa;}
-.cmd-name{font-size:13px;font-weight:800;color:#0D1B3E;}
-.cmd-info{font-size:11px;color:#666;margin-top:2px;}
-.cmd-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.cmd-total{font-size:16px;font-weight:800;color:#1B5E20;}
-.cmd-body{display:none;border-top:1px solid #f0f0f0;padding:12px 14px;background:#f9f9fa;}
+.cmd-body{display:none;padding:12px 16px;background:#f9fafb;border-top:1px solid #eee;}
 .cmd-body.open{display:block;}
-.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;white-space:nowrap;}
-.b-or{background:#FFF3E0;color:#E65100;border:1.5px solid #FFB74D;}
-.b-vt{background:#E8F5E9;color:#1B5E20;border:1.5px solid #66BB6A;}
-.b-rg{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
-.b-bl{background:#E3F2FD;color:#0D47A1;border:1.5px solid #42A5F5;}
-.b-mv{background:#F3E5F5;color:#6A1B9A;border:1.5px solid #CE93D8;}
-.b-og{background:#FBE9E7;color:#BF360C;border:1.5px solid #FFAB91;}
-.b-ai{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
-.b-coord-ok{background:#E8F5E9;color:#1B5E20;border:1.5px solid #66BB6A;}
-.b-coord-no{background:#FFEBEE;color:#B71C1C;border:1.5px solid #EF5350;}
-.arts-table{width:100%;border-collapse:collapse;margin:8px 0;}
-.arts-table th{font-size:10px;color:#fff;background:#1a2d5a;padding:5px 8px;text-align:left;font-weight:700;}
-.arts-table td{font-size:11px;padding:5px 8px;border-bottom:1px solid #eee;vertical-align:middle;}
-.form-add{background:#F8F9FA;border:2px dashed #ccc;border-radius:8px;padding:10px;margin-top:10px;}
-.fi{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end;}
-.fg{display:flex;flex-direction:column;gap:2px;}
-.fg label{font-size:10px;color:#555;font-weight:800;}
-.fg input,.fg select{font-size:12px;padding:6px 8px;border-radius:6px;border:1.5px solid #ddd;background:#fff;}
-.btn-or{background:#F57C00;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;}
-.btn-vt{background:#2E7D32;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;}
-.btn-sm{font-size:11px;padding:3px 8px;border-radius:5px;border:1.5px solid #ddd;background:#fff;cursor:pointer;}
-.btn-del{background:#C62828;color:#fff;border:none;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px;}
-.tbl-wrap{overflow-x:auto;background:#fff;border-radius:8px;border:1px solid #e0e0e0;margin-bottom:10px;}
-table{width:100%;border-collapse:collapse;}
-th{font-size:10px;color:#fff;background:#0D1B3E;padding:7px 9px;text-align:left;white-space:nowrap;font-weight:700;}
-td{padding:7px 9px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-size:12px;}
+.badge-or{background:#FFF3E0;color:#E65100;border:2px solid #FFB74D;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-vt{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-rg{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-mv{background:#F3E5F5;color:#4A148C;border:2px solid #CE93D8;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-og{background:#FBE9E7;color:#BF360C;border:2px solid #FFAB91;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-ai{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-coord-ok{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-coord-no{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.form-control,.form-select{border-radius:8px;border:1.5px solid #ddd;font-size:12px;padding:7px 10px;}
+.form-control:focus,.form-select:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(245,124,0,0.15);}
+.btn-or{background:linear-gradient(135deg,#F57C00,#FF9800);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-vt{background:linear-gradient(135deg,#1B5E20,#2E7D32);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-bn{background:var(--bn);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-rg{background:var(--rg);border:none;color:#fff;border-radius:8px;padding:5px 10px;font-weight:700;font-size:11px;cursor:pointer;}
 .vrow{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
 .vrow:last-child{border-bottom:none;}
-.total-row{font-weight:800;font-size:14px;border-top:3px solid #0D1B3E;margin-top:6px;padding-top:8px;}
-.card{background:#fff;border-radius:10px;border:1px solid #e0e0e0;padding:14px;margin-bottom:10px;}
-.ret-card{background:#fff;border-radius:10px;border-left:5px solid #C62828;border:1px solid #e0e0e0;border-left:5px solid #C62828;padding:14px;margin-bottom:10px;}
-.new-cmd-card{background:#fff;border-radius:10px;border:2px dashed #F57C00;padding:14px;margin-bottom:10px;}
-.dep-cat{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;background:#E3F2FD;color:#0D47A1;border:1.5px solid #42A5F5;}
+.cloture-bar{background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;border-radius:12px;padding:12px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+.prog{height:8px;background:#eee;border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:4px;background:#2E7D32;}
+.alert-warn{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:600;}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div><h1>📊 Tableau Christina 2026</h1></div>
-  <div style="display:flex;gap:8px;">
-    <a href="/anja" style="text-decoration:none;"><button class="btn-or">🚚 Tableau Anja</button></a>
-    <a href="/logout" style="text-decoration:none;"><button class="btn-sm">Déconnexion</button></a>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="logo">
+    <div style="font-size:28px;">📊</div>
+    <h5>Tableau Christina</h5>
+    <small>2026</small>
+  </div>
+  <a href="#dash" onclick="goSec('dash',this)" class="active"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
+  <div class="menu-sec">Commandes</div>
+  <a href="#commandes" onclick="goSec('commandes',this)"><i class="fas fa-shopping-cart"></i><span>Commandes</span></a>
+  <a href="#retours" onclick="goSec('retours',this)"><i class="fas fa-undo"></i><span>Retours</span></a>
+  <div class="menu-sec">Ventes</div>
+  <a href="#ventes" onclick="goSec('ventes',this)"><i class="fas fa-store"></i><span>Ventes directes</span></a>
+  <div class="menu-sec">Finances</div>
+  <a href="#finances" onclick="goSec('finances',this)"><i class="fas fa-coins"></i><span>Versements</span></a>
+  <a href="#depenses" onclick="goSec('depenses',this)"><i class="fas fa-receipt"></i><span>Dépenses</span></a>
+  <a href="#remb" onclick="goSec('remb',this)"><i class="fas fa-hand-holding-usd"></i><span>Remboursements</span></a>
+  <a href="#achats" onclick="goSec('achats',this)"><i class="fas fa-truck"></i><span>Achats & Frais</span></a>
+  <div style="position:absolute;bottom:0;width:100%;border-top:1px solid rgba(255,255,255,0.15);padding:5px 0;">
+    <a href="/anja"><i class="fas fa-truck"></i><span>Tableau Anja</span></a>
+    <a href="/logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
   </div>
 </div>
-<div class="nav">
-  <a href="#dash" class="act" onclick="goTo(event,this,'dash')">🏠 Dashboard</a>
-  <a href="#commandes" onclick="goTo(event,this,'commandes')">📦 Commandes</a>
-  <a href="#retours" onclick="goTo(event,this,'retours')">🔄 Retours</a>
-  <a href="#ventes" onclick="goTo(event,this,'ventes')">🛒 Ventes directes</a>
-  <a href="#finances" onclick="goTo(event,this,'finances')">💰 Finances</a>
-  <a href="#depenses" onclick="goTo(event,this,'depenses')">💸 Dépenses</a>
-</div>
+<button class="toggle-btn" id="toggle-btn" onclick="toggleSidebar()">
+  <i class="fas fa-chevron-left" id="toggle-icon" style="font-size:10px;"></i>
+</button>
 
-<div class="container">
-
-<!-- DASHBOARD -->
-<div id="dash">
-<div class="cloture-bar">
-  <div><span>Clôture des ventes journalières</span><br><strong id="cloture-msg">⏳ Calcul...</strong></div>
-  <div style="text-align:right;"><span>Heure actuelle</span><br><strong id="heure-now" style="font-size:16px;color:#fff;"></strong></div>
-</div>
-
-{% if retours %}<div class="alert-rg">🔄 {{retours|length}} retour(s) en attente de ta confirmation !</div>{% endif %}
-
-{% set today_str = today %}
-{% set ca_jour = namespace(total=0) %}
-{% for cmd in commandes if cmd.date == today_str %}
-  {% set ca_jour.total = ca_jour.total + cmd.total %}
-{% endfor %}
-{% set ca_jour_vd = namespace(total=0) %}
-{% for v in ventes if v.date == today_str %}
-  {% set ca_jour_vd.total = ca_jour_vd.total + v.qte * v.prix_unitaire %}
-{% endfor %}
-{% set dep_jour = namespace(total=0) %}
-{% for d in depenses if d.date == today_str %}
-  {% set dep_jour.total = dep_jour.total + d.montant %}
-{% endfor %}
-
-<div class="ca-grid">
-  <div class="ca-dark"><span class="ca-lbl">📅 CA du jour</span><div class="ca-val" style="color:#FFD740;">{{"{:,}".format(ca_jour.total + ca_jour_vd.total).replace(",",".")}} Ar</div></div>
-  <div class="ca-dark"><span class="ca-lbl">💸 Dépenses du jour</span><div class="ca-val" style="color:#EF5350;">{{"{:,}".format(dep_jour.total).replace(",",".")}} Ar</div></div>
-  <div class="ca-dark"><span class="ca-lbl">💵 CA espèces total</span><div class="ca-val" style="color:#69F0AE;">{{"{:,}".format(ca_liv).replace(",",".")}} Ar</div></div>
-  <div class="ca-dark"><span class="ca-lbl">📱 CA mobile money</span><div class="ca-val" style="color:#40C4FF;">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</div></div>
-  <div class="ca-light"><span class="ca-lbl">🛒 CA ventes directes</span><div class="ca-val" style="color:#F57C00;">{{"{:,}".format(ca_vd).replace(",",".")}} Ar</div></div>
-  <div class="ca-light"><span class="ca-lbl">📊 CA total</span><div class="ca-val" style="color:#2E7D32;">{{"{:,}".format(ca_liv+ca_mm+ca_vd).replace(",",".")}} Ar</div></div>
-  <div class="ca-light"><span class="ca-lbl">💰 Total versé boss</span><div class="ca-val">{{"{:,}".format(tot_vers).replace(",",".")}} Ar</div></div>
-  <div class="ca-light"><span class="ca-lbl">💸 Dépenses totales</span><div class="ca-val" style="color:#C62828;">{{"{:,}".format(tot_dep).replace(",",".")}} Ar</div></div>
-</div>
-</div>
-
-<!-- COMMANDES -->
-<div id="commandes">
-<div class="sec">📦 Commandes vers Anja</div>
-<div class="new-cmd-card">
-  <div style="font-size:12px;font-weight:800;color:#F57C00;margin-bottom:10px;">➕ Nouvelle commande client</div>
-  <form method="POST" action="/moi/commande/nouvelle">
-    <div class="fi">
-      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
-      <div class="fg"><label>Client</label><input type="text" name="client" required style="width:130px;"></div>
-      <div class="fg"><label>Contact</label><input type="text" name="contact" style="width:120px;"></div>
-      <div class="fg"><label>Adresse</label><input type="text" name="adresse" style="width:150px;"></div>
-      <div class="fg"><label>Livreur</label>
-        <select name="livreur">{% for l in livreurs %}<option>{{l}}</option>{% endfor %}</select>
-      </div>
-      <div class="fg"><label>Frais (Ar)</label><input type="number" name="frais" value="5000" style="width:80px;"></div>
-      <div class="fg"><label>Paiement</label>
-        <select name="paiement">
-          <option value="espece">💵 Espèces</option>
-          <option value="mvola">📱 Mvola</option>
-          <option value="orange">📱 Orange Money</option>
-          <option value="airtel">📱 Airtel Money</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-or" style="align-self:flex-end;">Créer</button>
-    </div>
-  </form>
-</div>
-
-{% for cmd in commandes %}
-{% set sent=cmd.envoye_anja==1 %}
-{% set is_mm=cmd.paiement in ['mvola','orange','airtel'] %}
-<div class="cmd-row {{'sent' if sent else 'not-sent'}}" id="cmd-{{cmd.id}}">
-  <div class="cmd-header" onclick="toggleCmd({{cmd.id}})">
-    <div>
-      <div class="cmd-name">
-        {{cmd.client}}
-        &nbsp;{% if sent %}<span class="badge b-vt">✓ Anja</span>{% else %}<span class="badge b-or">Non envoyé</span>{% endif %}
-        &nbsp;{% if cmd.paiement=='mvola' %}<span class="badge b-mv">📱 Mvola</span>
-        {% elif cmd.paiement=='orange' %}<span class="badge b-og">📱 Orange</span>
-        {% elif cmd.paiement=='airtel' %}<span class="badge b-ai">📱 Airtel</span>
-        {% else %}<span class="badge b-vt">💵 Espèces</span>{% endif %}
-        {% if is_mm %}
-          &nbsp;{% if cmd.coordonne=='recu' %}<span class="badge b-coord-ok">✅ Coordonné reçu</span>
-          {% else %}<span class="badge b-coord-no">❌ Coordonné non reçu</span>{% endif %}
-        {% endif %}
-      </div>
-      <div class="cmd-info">{{cmd.date}} — {{cmd.adresse}} — <strong>{{cmd.livreur}}</strong> — Frais: <strong style="color:#F57C00;">{{"{:,}".format(cmd.frais).replace(",",".")}} Ar</strong> — <em>{{cmd.types}}</em></div>
-    </div>
-    <div class="cmd-right">
-      <span class="cmd-total">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</span>
-      <span style="font-size:18px;color:#888;">▾</span>
+<div class="main" id="main">
+  <div class="topbar">
+    <span class="brand">📊 Tableau Christina 2026</span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="text-muted small" id="cloture-msg"></span>
+      <span class="text-muted small"><i class="fas fa-calendar me-1"></i>{{today}}</span>
     </div>
   </div>
-  <div class="cmd-body" id="body-{{cmd.id}}">
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-      {% if not sent %}
-      <form method="POST" action="/moi/commande/envoyer/{{cmd.id}}" style="display:inline;">
-        <button type="submit" class="btn-vt">🚚 Envoyer à Anja</button>
-      </form>
-      {% endif %}
-      {% if is_mm %}
-      <form method="POST" action="/moi/commande/coordonne/{{cmd.id}}" style="display:inline;">
-        {% if cmd.coordonne=='recu' %}
-          <input type="hidden" name="coordonne" value="non_recu">
-          <button type="submit" class="btn-sm" style="color:#C62828;">Marquer non reçu</button>
-        {% else %}
-          <input type="hidden" name="coordonne" value="recu">
-          <button type="submit" class="btn-vt">✅ Coordonné reçu</button>
-        {% endif %}
-      </form>
-      {% endif %}
-      <form method="POST" action="/moi/commande/supprimer/{{cmd.id}}" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
-        <button type="submit" class="btn-del">✕ Supprimer</button>
-      </form>
+
+  <div class="content">
+
+  <!-- DASHBOARD -->
+  <div id="dash">
+  {% if retours %}<div class="alert-warn">🔄 {{retours|length}} retour(s) en attente de ta confirmation !</div>{% endif %}
+  <div class="cloture-bar">
+    <div><div style="font-size:11px;color:#90CAF9;">Clôture des ventes</div><div style="font-size:14px;font-weight:700;" id="cloture-txt">⏳ Calcul...</div></div>
+    <div style="text-align:right;"><div style="font-size:11px;color:#90CAF9;">Heure actuelle</div><div style="font-size:18px;font-weight:800;" id="clock">--:--:--</div></div>
+  </div>
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#c2185b,#e91e8c);">
+        <div class="num">{{"{:,}".format(ca_jour).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-sun me-1"></i>CA du jour</div>
+      </div>
     </div>
-    {% if cmd.articles %}
-    <table class="arts-table">
-      <thead><tr><th>Réf</th><th>Catégorie</th><th>Quantité</th><th>PU (Ar)</th><th>Total</th>{% if not sent %}<th></th>{% endif %}</tr></thead>
-      <tbody>
-      {% for a in cmd.articles %}
-      <tr>
-        <td><span class="badge b-bl">{{a.ref}}</span></td>
-        <td>{{a.categorie}}</td>
-        <td style="font-weight:800;">{{a.qte}}</td>
-        <td>{{"{:,}".format(a.prix_unitaire).replace(",",".")}}</td>
-        <td style="font-weight:800;color:#1B5E20;">{{"{:,}".format(a.qte*a.prix_unitaire).replace(",",".")}} Ar</td>
-        {% if not sent %}
-        <td><form method="POST" action="/moi/article/supprimer/{{a.id}}" onsubmit="return confirm('Supprimer ?')">
-          <button type="submit" class="btn-del">✕</button></form></td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    {% endif %}
-    {% if not sent %}
-    <div class="form-add">
-      <form method="POST" action="/moi/article/ajouter">
-        <input type="hidden" name="commande_id" value="{{cmd.id}}">
-        <div class="fi">
-          <div class="fg"><label>Référence</label>
-            <select name="ref" id="ref-{{cmd.id}}" onchange="setPU(this,'{{cmd.id}}')">
-              {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
-            </select>
-          </div>
-          <input type="hidden" name="categorie" id="cat-{{cmd.id}}" value="Charme & Douceur">
-          <div class="fg"><label>Quantité</label><input type="number" name="qte" value="1" min="1" style="width:65px;"></div>
-          <div class="fg"><label>PU (Ar)</label><input type="number" name="pu" id="pu-{{cmd.id}}" value="5000" style="width:90px;"></div>
-          <button type="submit" class="btn-or">+ Article</button>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#B71C1C,#EF5350);">
+        <div class="num">{{"{:,}".format(dep_jour).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-receipt me-1"></i>Dépenses du jour</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#1B5E20,#43a047);">
+        <div class="num">{{"{:,}".format(ca_liv).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-money-bill me-1"></i>CA espèces total</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#0D47A1,#1565C0);">
+        <div class="num">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-mobile me-1"></i>CA mobile money</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#E65100,#F57C00);">
+        <div class="num">{{"{:,}".format(ca_vd).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-store me-1"></i>CA ventes directes</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#006064,#00838F);">
+        <div class="num">{{"{:,}".format(ca_liv+ca_mm+ca_vd).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-chart-bar me-1"></i>CA total</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#4A148C,#6A1B9A);">
+        <div class="num">{{"{:,}".format(tot_vers).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-hand-holding-usd me-1"></i>Total versé boss</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#33691e,#8bc34a);">
+        <div class="num">{{"{:,}".format(tot_av-tot_remb).replace(",",".")}} Ar</div><div class="lbl"><i class="fas fa-coins me-1"></i>Reste avance boss</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- COMMANDES -->
+  <div id="commandes">
+  <div class="section-title"><i class="fas fa-shopping-cart me-2"></i>Commandes vers Anja</div>
+
+  <!-- Nouvelle commande -->
+  <div class="card unsent p-3 mb-3" style="border-left:5px solid var(--or);">
+    <div style="font-size:12px;font-weight:700;color:var(--or);margin-bottom:10px;"><i class="fas fa-plus me-1"></i>NOUVELLE COMMANDE</div>
+    <form method="POST" action="/moi/commande/nouvelle">
+      <div class="row g-2">
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted">CLIENT</label><input type="text" name="client" class="form-control" required></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted">CONTACT</label><input type="text" name="contact" class="form-control"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted">ADRESSE</label><input type="text" name="adresse" class="form-control"></div>
+        <div class="col-6 col-md-1"><label class="form-label fw-bold small text-muted">COORDONNÉES</label><input type="text" name="facebook" class="form-control"></div>
+        <input type="hidden" name="livreur" value="À assigner">
+        <div class="col-4 col-md-1"><label class="form-label fw-bold small text-muted">FRAIS</label><input type="number" name="frais" class="form-control" value="5000"></div>
+        <div class="col-4 col-md-1"><label class="form-label fw-bold small text-muted">PAIEMENT</label>
+          <select name="paiement" class="form-select">
+            <option value="espece">💵 Espèces</option>
+            <option value="mvola">📱 Mvola</option>
+            <option value="orange">📱 Orange</option>
+            <option value="airtel">📱 Airtel</option>
+          </select>
         </div>
-      </form>
-    </div>
-    {% endif %}
+        <div class="col-4 col-md-1 d-flex align-items-end"><button type="submit" class="btn-or w-100">Créer</button></div>
+      </div>
+    </form>
   </div>
-</div>
-{% endfor %}
-</div>
 
-<!-- RETOURS -->
-<div id="retours">
-<div class="sec">🔄 Retours à confirmer — Christina</div>
-{% if retours %}
-{% for r in retours %}
-<div class="ret-card">
-  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
-    <div>
-      <div style="font-size:14px;font-weight:800;">{{r.client}} — {{r.livreur}}</div>
-      <div style="font-size:11px;color:#666;">{{r.date}} — {{r.adresse}}</div>
-      <div style="font-size:11px;color:#C62828;margin-top:2px;">Motif: <strong>{{r.motif or '—'}}</strong>{% if r.motif_autre %} : {{r.motif_autre}}{% endif %}</div>
-    </div>
-    <span class="badge b-rg">⚠️ À confirmer</span>
+  <!-- Envoi groupé -->
+  <form method="POST" action="/moi/commandes/envoyer_tout" style="display:inline;">
+    <button type="submit" class="btn-vt mb-3" onclick="return confirm('Envoyer toutes les commandes non envoyées à Anja ?')">
+      <i class="fas fa-paper-plane me-1"></i>Envoyer toutes à Anja en une fois
+    </button>
+  </form>
+
+  <!-- Filtre date -->
+  <div class="d-flex gap-2 align-items-center mb-3 flex-wrap">
+    <span style="font-size:12px;font-weight:700;color:#888;">FILTRER :</span>
+    <input type="date" id="filtre-date" class="form-control" style="width:160px;" onchange="filtrerCommandes()" value="{{today}}">
+    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('filtre-date').value='';filtrerCommandes()">Toutes les dates</button>
+    <span id="nb-commandes" style="font-size:12px;color:#888;"></span>
   </div>
-  <table class="arts-table">
-    <thead><tr><th>Réf</th><th>Catégorie</th><th>Qté retournée</th></tr></thead>
+
+  {% for cmd in commandes %}
+  {% set sent=cmd.envoye_anja==1 %}
+  {% set is_mm=cmd.paiement in ['mvola','orange','airtel'] %}
+  <div class="cmd-card {{'sent' if sent else 'unsent'}}" id="cmd-{{cmd.id}}" data-date="{{cmd.date}}">
+    <div class="cmd-header" onclick="toggleCmd(this)">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--bn);">
+          <i class="fas fa-user me-1 text-muted"></i>{{cmd.client}}
+          &nbsp;{% if sent %}<span class="badge-vt">✓ Envoyé Anja</span>{% else %}<span class="badge-or">Non envoyé</span>{% endif %}
+          &nbsp;{% if cmd.paiement=='mvola' %}<span class="badge-mv">📱 Mvola</span>
+          {% elif cmd.paiement=='orange' %}<span class="badge-og">📱 Orange</span>
+          {% elif cmd.paiement=='airtel' %}<span class="badge-ai">📱 Airtel</span>
+          {% else %}<span class="badge-vt">💵 Espèces</span>{% endif %}
+          {% if is_mm %}&nbsp;{% if cmd.coordonne=='recu' %}<span class="badge-coord-ok">✅ Coordonné reçu</span>{% else %}<span class="badge-coord-no">❌ Coordonné non reçu</span>{% endif %}{% endif %}
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:2px;">
+          <i class="fas fa-motorcycle me-1"></i><strong>{{cmd.livreur}}</strong>
+          &nbsp;|&nbsp;<i class="fas fa-map-marker-alt me-1"></i>{{cmd.adresse}}
+          &nbsp;|&nbsp;Frais: <strong style="color:var(--or);">{{"{:,}".format(cmd.frais).replace(",",".")}} Ar</strong>
+          &nbsp;|&nbsp;<em>{{cmd.types}}</em>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:16px;font-weight:800;color:#1B5E20;">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</span>
+        <i class="fas fa-chevron-down text-muted" style="font-size:12px;"></i>
+      </div>
+    </div>
+    <div class="cmd-body">
+      <!-- Articles -->
+      {% if cmd.articles %}
+      <div class="mb-2">
+        <div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px;text-transform:uppercase;">Articles commandés</div>
+        {% for a in cmd.articles %}
+        <div class="d-flex justify-content-between align-items-center p-2 mb-1" style="background:#fff;border-radius:8px;border:1px solid #eee;">
+          <span><strong style="font-size:12px;">{{a.nom or a.ref}}</strong> <span class="badge bg-secondary" style="font-size:10px;">{{a.ref}}</span> x{{a.qte}}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <strong style="color:#1B5E20;font-size:12px;">{{"{:,}".format(a.qte*a.prix_unitaire).replace(",",".")}} Ar</strong>
+            <form method="POST" action="/moi/article/supprimer/{{a.id}}" onsubmit="return confirm('Supprimer ?')" style="display:inline;">
+              <button type="submit" class="btn-rg" style="font-size:10px;padding:2px 6px;"><i class="fas fa-trash"></i></button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <!-- Ajouter article -->
+      <div style="background:#F8F9FA;border:2px dashed #ddd;border-radius:10px;padding:10px;margin-bottom:10px;">
+        <div style="font-size:10px;font-weight:700;color:#888;margin-bottom:8px;text-transform:uppercase;">+ Ajouter articles (plusieurs à la fois)</div>
+        <form method="POST" action="/moi/articles/ajouter_multiple">
+          <input type="hidden" name="commande_id" value="{{cmd.id}}">
+          <div id="lignes-{{cmd.id}}">
+            <div class="row g-2 align-items-center mb-1 ligne-art">
+              <div class="col"><select name="ref[]" class="form-select ref-sel" data-cid="{{cmd.id}}" onchange="setPULigne(this)" style="font-size:11px;">
+                {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
+              </select></div>
+              <div class="col"><input type="text" name="nom[]" class="form-control" placeholder="Soutiens / Slip / Chaussette" style="font-size:11px;"></div>
+              <div class="col-2"><input type="number" name="qte[]" value="1" min="1" class="form-control" style="font-size:11px;" placeholder="Qté"></div>
+              <div class="col-2"><input type="number" name="pu[]" value="5000" class="form-control pu-inp" style="font-size:11px;" placeholder="PU"></div>
+              <div class="col-auto"><button type="button" class="btn-rg" onclick="suppLigne(this)" style="font-size:11px;">✕</button></div>
+            </div>
+          </div>
+          <input type="hidden" name="categories[]" id="cats-{{cmd.id}}" value="">
+          <div class="d-flex gap-2 mt-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajouterLigne('{{cmd.id}}')" style="font-size:11px;">+ Ligne</button>
+            <button type="submit" class="btn-or" style="font-size:11px;">✓ Soumettre tous les articles</button>
+          </div>
+        </form>
+      </div>
+      <!-- Actions -->
+      <div class="d-flex gap-2 flex-wrap">
+        {% if not sent %}
+        <form method="POST" action="/moi/commande/envoyer/{{cmd.id}}" style="display:inline;">
+          <button type="submit" class="btn-vt"><i class="fas fa-paper-plane me-1"></i>Envoyer à Anja</button>
+        </form>
+        {% endif %}
+        {% if is_mm %}
+        <form method="POST" action="/moi/commande/coordonne/{{cmd.id}}" style="display:inline;">
+          {% if cmd.coordonne=='recu' %}
+            <input type="hidden" name="coordonne" value="non_recu">
+            <button type="submit" class="btn btn-sm btn-outline-danger" style="font-size:11px;">Marquer non reçu</button>
+          {% else %}
+            <input type="hidden" name="coordonne" value="recu">
+            <button type="submit" class="btn-vt" style="font-size:11px;">✅ Coordonné reçu</button>
+          {% endif %}
+        </form>
+        {% endif %}
+        <form method="POST" action="/moi/commande/supprimer/{{cmd.id}}" style="display:inline;" onsubmit="return confirm('Supprimer cette commande ?')">
+          <button type="submit" class="btn-rg"><i class="fas fa-trash me-1"></i>Supprimer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+
+  <!-- RETOURS -->
+  <div id="retours">
+  <div class="section-title"><i class="fas fa-undo me-2"></i>Retours à confirmer — Christina</div>
+  {% if retours %}
+  {% for r in retours %}
+  <div class="cmd-card ret">
+    <div class="card-body p-3">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--bn);">{{r.client}} — {{r.livreur}}</div>
+          <div style="font-size:11px;color:#888;">{{r.date}} — {{r.adresse}}</div>
+          <div style="font-size:11px;color:#B71C1C;font-weight:600;">Motif: {{r.motif or '—'}}{% if r.motif_autre %} : {{r.motif_autre}}{% endif %}</div>
+        </div>
+        <span class="badge-rg">⚠️ À confirmer</span>
+      </div>
+      {% for a in r.articles %}
+      <div class="d-flex justify-content-between p-2 mb-1" style="background:#f9f9f9;border-radius:8px;">
+        <span style="font-size:12px;"><strong>{{a.nom or a.ref}}</strong> x{{a.qte}}</span>
+        <span style="font-size:12px;font-weight:700;">{{"{:,}".format(a.qte*a.prix_unitaire).replace(",",".")}} Ar</span>
+      </div>
+      {% endfor %}
+      <div style="background:#E8F5E9;border-radius:8px;padding:10px;margin-top:10px;border:1.5px solid #66BB6A;">
+        <div style="font-size:11px;font-weight:700;color:#1B5E20;margin-bottom:8px;">✅ Confirme que tu as bien reçu les articles physiquement :</div>
+        <form method="POST" action="/moi/retour/confirmer/{{r.id}}">
+          <button type="submit" class="btn-vt">✓ J'ai reçu les articles — Confirmer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div style="color:#888;font-size:13px;padding:10px 0;">Aucun retour en attente.</div>
+  {% endif %}
+  </div>
+
+  <!-- VENTES DIRECTES -->
+  <div id="ventes">
+  <div class="section-title"><i class="fas fa-store me-2"></i>Ventes directes (client vient chez toi)</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/vente/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-6 col-md-1"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">CLIENT</label><input type="text" name="client" class="form-control"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">CONTACT</label><input type="text" name="contact" class="form-control"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">RÉFÉRENCE</label>
+          <select name="ref" id="ref-vd" class="form-select" onchange="setPUvd(this)">
+            {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
+          </select>
+        </div>
+        <input type="hidden" name="categorie" id="cat-vd" value="Charme & Douceur">
+        <div class="col-3 col-md-1"><label class="form-label fw-bold small text-muted" style="font-size:10px;">QTÉ</label><input type="number" name="qte" value="1" min="1" class="form-control"></div>
+        <div class="col-3 col-md-1"><label class="form-label fw-bold small text-muted" style="font-size:10px;">PU (Ar)</label><input type="number" name="pu" id="pu-vd" value="5000" class="form-control"></div>
+        <div class="col-6 col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">PAIEMENT</label>
+          <select name="paiement" class="form-select">
+            <option value="espece">💵 Espèces</option>
+            <option value="mvola">📱 Mvola</option>
+            <option value="orange">📱 Orange Money</option>
+            <option value="airtel">📱 Airtel Money</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-1"><button type="submit" class="btn-or w-100">+ Ajouter</button></div>
+      </div>
+    </form>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-hover" style="font-size:12px;background:#fff;border-radius:12px;overflow:hidden;">
+    <thead style="background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;">
+      <tr><th>Date</th><th>Client</th><th>Contact</th><th>Réf</th><th>Catégorie</th><th>Qté</th><th>PU</th><th>Total</th><th>Paiement</th><th></th></tr>
+    </thead>
     <tbody>
-    {% for a in r.articles %}
+    {% for v in ventes %}
     <tr>
-      <td><span class="badge b-bl">{{a.ref}}</span></td>
-      <td>{{a.categorie}}</td>
-      <td style="font-weight:800;color:#C62828;">{{a.qte}} pcs</td>
+      <td>{{v.date}}</td><td>{{v.client or '—'}}</td><td>{{v.contact or '—'}}</td>
+      <td><span class="badge bg-primary" style="font-size:10px;">{{v.ref}}</span></td>
+      <td style="font-size:11px;">{{v.categorie}}</td>
+      <td><strong>{{v.qte}}</strong></td>
+      <td>{{"{:,}".format(v.prix_unitaire).replace(",",".")}}</td>
+      <td><strong style="color:#1B5E20;">{{"{:,}".format(v.qte*v.prix_unitaire).replace(",",".")}} Ar</strong></td>
+      <td>{% if v.paiement=='mvola' %}<span class="badge-mv">📱 Mvola</span>
+        {% elif v.paiement=='orange' %}<span class="badge-og">📱 Orange</span>
+        {% elif v.paiement=='airtel' %}<span class="badge-ai">📱 Airtel</span>
+        {% else %}<span class="badge-vt">💵 Espèces</span>{% endif %}</td>
+      <td><form method="POST" action="/moi/vente/supprimer/{{v.id}}" onsubmit="return confirm('Supprimer ?')">
+        <button type="submit" class="btn-rg" style="font-size:10px;padding:2px 6px;"><i class="fas fa-trash"></i></button></form></td>
     </tr>
     {% endfor %}
     </tbody>
   </table>
-  <div style="background:#E8F5E9;border-radius:8px;padding:10px;margin-top:10px;border:1.5px solid #66BB6A;">
-    <div style="font-size:11px;font-weight:800;color:#1B5E20;margin-bottom:8px;">✅ Confirme que tu as bien reçu les articles physiquement :</div>
-    <form method="POST" action="/moi/retour/confirmer/{{r.id}}">
-      <input type="hidden" name="montant_retour" value="0">
-      <button type="submit" class="btn-vt">✓ J'ai reçu les articles — Confirmer</button>
+  </div>
+  </div>
+
+  <!-- FINANCES -->
+  <div id="finances">
+  <div class="section-title"><i class="fas fa-coins me-2"></i>Versements du lundi</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/versement/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-md-3"><label class="form-label fw-bold small text-muted" style="font-size:10px;">MONTANT (Ar)</label><input type="number" name="montant" value="0" class="form-control"></div>
+        <div class="col-md-4"><label class="form-label fw-bold small text-muted" style="font-size:10px;">NOTES</label><input type="text" name="notes" value="Versement semaine" class="form-control"></div>
+        <div class="col-md-3"><button type="submit" class="btn-or w-100">+ Ajouter versement</button></div>
+      </div>
+    </form>
+    <div class="mt-3">
+    {% for v in versements %}
+    <div class="vrow">
+      <div><strong>{{v.date}}</strong> — {{v.notes}}</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="badge-vt">{{"{:,}".format(v.montant).replace(",",".")}} Ar</span>
+        <form method="POST" action="/moi/versement/supprimer/{{v.id}}" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
+          <button type="submit" class="btn-rg" style="font-size:10px;padding:2px 6px;"><i class="fas fa-trash"></i></button></form>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="vrow" style="font-weight:800;font-size:14px;border-top:2px solid var(--bn);margin-top:6px;padding-top:8px;">
+      <div>Total versé au boss</div><span>{{"{:,}".format(tot_vers).replace(",",".")}} Ar</span>
+    </div>
+    </div>
+  </div>
+
+  <div class="section-title"><i class="fas fa-gem me-2"></i>Excédents</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/excedent/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-md-3"><label class="form-label fw-bold small text-muted" style="font-size:10px;">MONTANT (Ar)</label><input type="number" name="montant" value="0" class="form-control"></div>
+        <div class="col-md-4"><label class="form-label fw-bold small text-muted" style="font-size:10px;">NOTES</label><input type="text" name="notes" class="form-control"></div>
+        <div class="col-md-3"><button type="submit" class="btn-or w-100">+ Ajouter excédent</button></div>
+      </div>
+    </form>
+    <div class="mt-3">
+    {% for e in excedents %}
+    <div class="vrow"><div><strong>{{e.date}}</strong> — {{e.notes}}</div><span class="badge-or">{{"{:,}".format(e.montant).replace(",",".")}} Ar</span></div>
+    {% else %}<div style="color:#888;font-size:12px;padding:8px 0;">Aucun excédent.</div>{% endfor %}
+    </div>
+  </div>
+  </div>
+
+  <!-- DEPENSES -->
+  <div id="depenses">
+  <div class="section-title"><i class="fas fa-receipt me-2"></i>Dépenses</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/depense/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">CATÉGORIE</label>
+          <select name="categorie" class="form-select">
+            <option>🍽️ Repas</option><option>📱 Crédit téléphone</option>
+            <option>📦 Emballages</option><option>🏠 Loyer</option>
+            <option>💡 Électricité</option><option>📶 Wifi</option><option>📝 Autre</option>
+          </select>
+        </div>
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">MONTANT (Ar)</label><input type="number" name="montant" value="0" class="form-control"></div>
+        <div class="col-md-3"><label class="form-label fw-bold small text-muted" style="font-size:10px;">NOTES</label><input type="text" name="notes" class="form-control"></div>
+        <div class="col-md-3"><button type="submit" class="btn-or w-100">+ Ajouter dépense</button></div>
+      </div>
     </form>
   </div>
-</div>
-{% endfor %}
-{% else %}
-<div style="color:#888;font-size:13px;padding:10px 0;">Aucun retour en attente.</div>
-{% endif %}
-</div>
+  <div class="table-responsive">
+  <table class="table table-hover" style="font-size:12px;background:#fff;border-radius:12px;overflow:hidden;">
+    <thead style="background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;">
+      <tr><th>Date</th><th>Catégorie</th><th>Montant</th><th>Notes</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% for d in depenses %}
+    <tr>
+      <td>{{d.date}}</td>
+      <td><span style="background:#E3F2FD;color:#0D47A1;border:1px solid #90CAF9;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">{{d.categorie}}</span></td>
+      <td><strong style="color:#B71C1C;">{{"{:,}".format(d.montant).replace(",",".")}} Ar</strong></td>
+      <td style="font-size:11px;color:#888;">{{d.notes or '—'}}</td>
+      <td><form method="POST" action="/moi/depense/supprimer/{{d.id}}" onsubmit="return confirm('Supprimer ?')">
+        <button type="submit" class="btn-rg" style="font-size:10px;padding:2px 6px;"><i class="fas fa-trash"></i></button></form></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr style="font-weight:800;background:#f9f9f9;">
+      <td colspan="2">Total dépenses</td>
+      <td style="color:#B71C1C;">{{"{:,}".format(tot_dep).replace(",",".")}} Ar</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
+  </table>
+  </div>
+  </div>
 
-<!-- VENTES DIRECTES -->
-<div id="ventes">
-<div class="sec">🛒 Ventes directes (client vient chez toi)</div>
-<div class="card">
-  <form method="POST" action="/moi/vente/ajouter">
-    <div class="fi">
-      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
-      <div class="fg"><label>Client</label><input type="text" name="client" style="width:110px;"></div>
-      <div class="fg"><label>Contact</label><input type="text" name="contact" style="width:110px;"></div>
-      <div class="fg"><label>Référence</label>
-        <select name="ref" id="ref-vd" onchange="setPUvd(this)">
-          {% for ref,cat in all_refs %}<option value="{{ref}}" data-cat="{{cat}}" data-pu="{{prix_def.get(cat,5000)}}">{{ref}} — {{cat}}</option>{% endfor %}
-        </select>
+  <!-- REMBOURSEMENTS -->
+  <div id="remb">
+  <div class="section-title"><i class="fas fa-hand-holding-usd me-2"></i>Avances & Remboursements boss</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/avance/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-md-3"><label class="form-label fw-bold small text-muted" style="font-size:10px;">MONTANT (Ar)</label><input type="number" name="montant" value="0" class="form-control"></div>
+        <div class="col-md-4"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DESCRIPTION</label><input type="text" name="description" value="Avance capital" class="form-control"></div>
+        <div class="col-md-3"><button type="submit" class="btn-or w-100">+ Nouvelle avance</button></div>
       </div>
-      <input type="hidden" name="categorie" id="cat-vd" value="Charme & Douceur">
-      <div class="fg"><label>Qté</label><input type="number" name="qte" value="1" min="1" style="width:55px;"></div>
-      <div class="fg"><label>PU (Ar)</label><input type="number" name="pu" id="pu-vd" value="5000" style="width:85px;"></div>
-      <div class="fg"><label>Paiement</label>
-        <select name="paiement">
-          <option value="espece">💵 Espèces</option>
-          <option value="mvola">📱 Mvola</option>
-          <option value="orange">📱 Orange</option>
-          <option value="airtel">📱 Airtel</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
+    </form>
+  </div>
+  {% for a in avances %}
+  {% set p=[a.rembourse*100//a.montant if a.montant else 0,100]|min %}
+  <div class="card p-3 mb-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div><strong>{{a.description}}</strong><div style="font-size:11px;color:#888;">{{a.date}}</div></div>
+      <span class="badge-rg">{{"{:,}".format(a.montant).replace(",",".")}} Ar</span>
     </div>
-  </form>
-</div>
-<div class="tbl-wrap">
-<table>
-  <thead><tr><th>Date</th><th>Client</th><th>Contact</th><th>Réf</th><th>Catégorie</th><th>Qté</th><th>PU</th><th>Total</th><th>Paiement</th><th>Action</th></tr></thead>
-  <tbody>
-  {% for v in ventes %}
-  <tr>
-    <td>{{v.date}}</td><td>{{v.client or '—'}}</td><td style="font-size:11px;">{{v.contact or '—'}}</td>
-    <td><span class="badge b-bl">{{v.ref}}</span></td>
-    <td style="font-size:11px;">{{v.categorie}}</td>
-    <td style="font-weight:800;">{{v.qte}}</td>
-    <td>{{"{:,}".format(v.prix_unitaire).replace(",",".")}}</td>
-    <td style="font-weight:800;color:#1B5E20;">{{"{:,}".format(v.qte*v.prix_unitaire).replace(",",".")}} Ar</td>
-    <td>
-      {% if v.paiement=='mvola' %}<span class="badge b-mv">📱 Mvola</span>
-      {% elif v.paiement=='orange' %}<span class="badge b-og">📱 Orange</span>
-      {% elif v.paiement=='airtel' %}<span class="badge b-ai">📱 Airtel</span>
-      {% else %}<span class="badge b-vt">💵 Espèces</span>{% endif %}
-    </td>
-    <td><form method="POST" action="/moi/vente/supprimer/{{v.id}}" onsubmit="return confirm('Supprimer ?')">
-      <button type="submit" class="btn-del">✕</button></form></td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
-</div>
-</div>
-
-<!-- FINANCES -->
-<div id="finances">
-<div class="sec">💰 Versements du lundi</div>
-<div class="card">
-  <form method="POST" action="/moi/versement/ajouter">
-    <div class="fi">
-      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
-      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
-      <div class="fg"><label>Notes</label><input type="text" name="notes" value="Versement semaine" style="width:170px;"></div>
-      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
-    </div>
-  </form>
-  <div style="margin-top:10px;">
-  {% for v in versements %}
-  <div class="vrow">
-    <div><strong>{{v.date}}</strong> — {{v.notes}}</div>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <span class="badge b-vt">{{"{:,}".format(v.montant).replace(",",".")}} Ar</span>
-      <form method="POST" action="/moi/versement/supprimer/{{v.id}}" onsubmit="return confirm('Supprimer ?')">
-        <button type="submit" class="btn-del" style="font-size:10px;padding:2px 6px;">✕</button></form>
-    </div>
+    <div class="vrow"><div>Remboursé</div><span style="color:#1B5E20;font-weight:700;">{{"{:,}".format(a.rembourse).replace(",",".")}} Ar</span></div>
+    <div class="vrow"><div>Reste dû</div><span style="color:#B71C1C;font-weight:700;font-size:14px;">{{"{:,}".format(a.montant-a.rembourse).replace(",",".")}} Ar</span></div>
+    <div class="prog mt-2"><div class="prog-fill" style="width:{{p}}%"></div></div>
+    <div style="font-size:10px;color:#888;margin-top:2px;">{{p}}% remboursé</div>
+    <form method="POST" action="/moi/avance/rembourser/{{a.id}}" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
+      <input type="number" name="montant" placeholder="Montant à rembourser (Ar)" class="form-control" style="width:220px;">
+      <button type="submit" class="btn-or">Rembourser</button>
+    </form>
   </div>
   {% endfor %}
-  <div class="vrow total-row"><div>Total versé</div><span style="font-size:16px;">{{"{:,}".format(tot_vers).replace(",",".")}} Ar</span></div>
   </div>
-</div>
 
-<div class="sec">💎 Excédents</div>
-<div class="card">
-  <form method="POST" action="/moi/excedent/ajouter">
-    <div class="fi">
-      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
-      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
-      <div class="fg"><label>Notes</label><input type="text" name="notes" style="width:170px;"></div>
-      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
-    </div>
-  </form>
-  <div style="margin-top:10px;">
-  {% for e in excedents %}
-  <div class="vrow"><div><strong>{{e.date}}</strong> — {{e.notes}}</div><span class="badge b-or">{{"{:,}".format(e.montant).replace(",",".")}} Ar</span></div>
-  {% else %}<div style="color:#888;font-size:12px;padding:6px 0;">Aucun excédent.</div>{% endfor %}
-  </div>
-</div>
-</div>
-
-<!-- DEPENSES -->
-<div id="depenses">
-<div class="sec">💸 Dépenses</div>
-<div class="card">
-  <form method="POST" action="/moi/depense/ajouter">
-    <div class="fi">
-      <div class="fg"><label>Date</label><input type="date" name="date" value="{{today}}"></div>
-      <div class="fg"><label>Catégorie</label>
-        <select name="categorie">
-          <option>🍽️ Repas</option>
-          <option>📱 Crédit téléphone</option>
-          <option>📦 Emballages</option>
-          <option>🏠 Loyer</option>
-          <option>💡 Électricité</option>
-          <option>📶 Wifi</option>
-          <option>📝 Autre</option>
-        </select>
+  <!-- ACHATS -->
+  <div id="achats">
+  <div class="section-title"><i class="fas fa-truck me-2"></i>Achats & Frais de port</div>
+  <div class="card p-3 mb-3">
+    <form method="POST" action="/moi/achat/ajouter">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DATE</label><input type="date" name="date" class="form-control" value="{{today}}"></div>
+        <div class="col-md-3"><label class="form-label fw-bold small text-muted" style="font-size:10px;">DESCRIPTION</label><input type="text" name="description" required class="form-control"></div>
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">ACHAT (Ar)</label><input type="number" name="montant" value="0" class="form-control"></div>
+        <div class="col-md-2"><label class="form-label fw-bold small text-muted" style="font-size:10px;">FRAIS PORT (Ar)</label><input type="number" name="frais_port" value="0" class="form-control"></div>
+        <div class="col-md-3"><button type="submit" class="btn-or w-100">+ Ajouter</button></div>
       </div>
-      <div class="fg"><label>Montant (Ar)</label><input type="number" name="montant" value="0" style="width:130px;"></div>
-      <div class="fg"><label>Notes</label><input type="text" name="notes" style="width:160px;"></div>
-      <button type="submit" class="btn-or" style="align-self:flex-end;">+ Ajouter</button>
-    </div>
-  </form>
-</div>
-<div class="tbl-wrap">
-<table>
-  <thead><tr><th>Date</th><th>Catégorie</th><th>Montant (Ar)</th><th>Notes</th><th>Action</th></tr></thead>
-  <tbody>
-  {% for d in depenses %}
-  <tr>
-    <td>{{d.date}}</td>
-    <td><span class="dep-cat">{{d.categorie}}</span></td>
-    <td style="font-weight:800;color:#C62828;">{{"{:,}".format(d.montant).replace(",",".")}} Ar</td>
-    <td style="font-size:11px;color:#666;">{{d.notes or '—'}}</td>
-    <td><form method="POST" action="/moi/depense/supprimer/{{d.id}}" onsubmit="return confirm('Supprimer ?')">
-      <button type="submit" class="btn-del">✕</button></form></td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
-<div style="padding:10px 14px;font-weight:800;font-size:14px;border-top:2px solid #0D1B3E;display:flex;justify-content:space-between;">
-  <span>Total dépenses</span>
-  <span style="color:#C62828;">{{"{:,}".format(tot_dep).replace(",",".")}} Ar</span>
-</div>
-</div>
-</div>
+    </form>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-hover" style="font-size:12px;background:#fff;border-radius:12px;overflow:hidden;">
+    <thead style="background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;">
+      <tr><th>Date</th><th>Description</th><th>Achat (Ar)</th><th>Frais port</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+    {% for a in achats %}
+    <tr>
+      <td>{{a.date}}</td><td>{{a.description}}</td>
+      <td><strong>{{"{:,}".format(a.montant).replace(",",".")}}</strong></td>
+      <td style="color:var(--or);">{{"{:,}".format(a.frais_port).replace(",",".")}}</td>
+      <td><strong style="color:#B71C1C;">{{"{:,}".format(a.montant+a.frais_port).replace(",",".")}} Ar</strong></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </div>
 
-</div>
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-function toggleCmd(id){document.getElementById('body-'+id).classList.toggle('open');}
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const mn=document.getElementById('main');
+  const btn=document.getElementById('toggle-btn');
+  const icon=document.getElementById('toggle-icon');
+  sb.classList.toggle('collapsed');mn.classList.toggle('expanded');btn.classList.toggle('col');
+  icon.className=sb.classList.contains('collapsed')?'fas fa-chevron-right':'fas fa-chevron-left';
+  icon.style.fontSize='10px';
+}
+function goSec(id,a){
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.sidebar a').forEach(x=>x.classList.remove('active'));
+  a.classList.add('active');
+}
+function toggleCmd(el){el.nextElementSibling.classList.toggle('open');}
 function setPU(sel,id){
   const o=sel.options[sel.selectedIndex];
   document.getElementById('pu-'+id).value=o.dataset.pu||5000;
   document.getElementById('cat-'+id).value=o.dataset.cat||'';
+}
+function checkAutreFrais(sel){
+  const custom=document.getElementById('frais-custom');
+  if(sel.value==='autre'){
+    custom.style.display='block';
+    custom.name='frais';
+    sel.name='frais_disabled';
+  } else {
+    custom.style.display='none';
+    custom.name='frais_custom';
+    sel.name='frais';
+  }
+}
+function filtrerCommandes(){
+  const d=document.getElementById('filtre-date').value;
+  const cards=document.querySelectorAll('.cmd-card');
+  let visible=0;
+  cards.forEach(c=>{
+    const cd=c.dataset.date||'';
+    const show=!d||cd===d;
+    c.style.display=show?'':'none';
+    if(show) visible++;
+  });
+  const nb=document.getElementById('nb-commandes');
+  if(nb) nb.textContent=visible+' commande(s)';
+}
+// Init filter on load
+window.addEventListener('load',function(){filtrerCommandes();});
+
+function setPULigne(sel){
+  const o=sel.options[sel.selectedIndex];
+  const row=sel.closest('.ligne-art');
+  const pu=row.querySelector('.pu-inp');
+  if(pu) pu.value=o.dataset.pu||5000;
+}
+function ajouterLigne(cid){
+  const container=document.getElementById('lignes-'+cid);
+  const first=container.querySelector('.ligne-art');
+  const clone=first.cloneNode(true);
+  // Reset values
+  clone.querySelector('input[name="nom[]"]').value='';
+  clone.querySelector('input[name="qte[]"]').value='1';
+  const puInp=clone.querySelector('.pu-inp');
+  const refSel=clone.querySelector('.ref-sel');
+  if(refSel) puInp.value=refSel.options[0]?.dataset?.pu||5000;
+  container.appendChild(clone);
+}
+function suppLigne(btn){
+  const container=btn.closest('[id^="lignes-"]');
+  const lignes=container.querySelectorAll('.ligne-art');
+  if(lignes.length>1) btn.closest('.ligne-art').remove();
 }
 function setPUvd(sel){
   const o=sel.options[sel.selectedIndex];
   document.getElementById('pu-vd').value=o.dataset.pu||5000;
   document.getElementById('cat-vd').value=o.dataset.cat||'';
 }
-function goTo(e,a,id){
-  e.preventDefault();
-  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-  document.querySelectorAll('.nav a').forEach(x=>x.classList.remove('act'));
-  a.classList.add('act');
-}
-function updateCloture(){
+function tick(){
   const now=new Date();
   const h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
-  document.getElementById('heure-now').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const msg=document.getElementById('cloture-msg');
+  document.getElementById('clock').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const msg=document.getElementById('cloture-txt');
+  const cm=document.getElementById('cloture-msg');
   if(h<18){
-    const reste=18*60-(h*60+m);
-    msg.textContent='⏳ Clôture dans '+Math.floor(reste/60)+'h'+String(reste%60).padStart(2,'0')+'min';
-    msg.style.color='#FFD740';
+    const r=18*60-(h*60+m);
+    const txt='⏳ Clôture dans '+Math.floor(r/60)+'h'+String(r%60).padStart(2,'0')+'min';
+    if(msg) msg.textContent=txt;
+    if(cm) cm.textContent=txt;
   } else {
-    msg.textContent='🔒 Ventes clôturées à 18h00';
-    msg.style.color='#EF5350';
+    if(msg){msg.textContent='🔒 Ventes clôturées à 18h00';msg.style.color='#EF5350';}
+    if(cm) cm.textContent='🔒 Clôturé à 18h00';
   }
 }
-updateCloture();setInterval(updateCloture,1000);
+tick();setInterval(tick,1000);
 </script>
 </body>
 </html>

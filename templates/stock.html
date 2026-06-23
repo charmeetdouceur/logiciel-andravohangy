@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock — Livraison Andravohangy</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{--bn:#0D1B3E;--or:#F57C00;--vt:#1B5E20;--rg:#B71C1C;}
+body{font-family:Arial,sans-serif;background:#f0f2f5;font-size:13px;}
+.sidebar{min-height:100vh;background:linear-gradient(180deg,var(--bn) 0%,#1a2d5a 100%);width:240px;position:fixed;top:0;left:0;z-index:100;transition:width .3s;overflow:hidden;}
+.sidebar.collapsed{width:60px;}
+.sidebar .logo{text-align:center;color:#fff;padding:16px 10px;border-bottom:1px solid rgba(255,255,255,0.15);margin-bottom:5px;}
+.sidebar .logo h5{font-size:13px;font-weight:700;margin:5px 0 0;}
+.sidebar.collapsed .logo h5,.sidebar.collapsed a span,.sidebar.collapsed .menu-sec{display:none;}
+.sidebar a{display:flex;align-items:center;color:rgba(255,255,255,0.85);padding:9px 18px;text-decoration:none;border-left:3px solid transparent;font-size:12px;white-space:nowrap;transition:all .2s;}
+.sidebar a:hover,.sidebar a.active{background:rgba(255,255,255,0.12);color:#fff;border-left-color:var(--or);}
+.sidebar a i{width:20px;min-width:20px;margin-right:10px;}
+.sidebar.collapsed a{padding:12px;justify-content:center;}
+.sidebar.collapsed a i{margin:0;}
+.menu-sec{font-size:10px;color:rgba(255,255,255,0.4);padding:8px 18px 2px;text-transform:uppercase;letter-spacing:1px;}
+.toggle-btn{position:fixed;top:50%;left:240px;transform:translateY(-50%);background:var(--or);border:none;color:#fff;width:18px;height:44px;border-radius:0 8px 8px 0;cursor:pointer;z-index:101;transition:left .3s;display:flex;align-items:center;justify-content:center;}
+.toggle-btn.col{left:60px;}
+.main{margin-left:240px;transition:margin-left .3s;}
+.main.expanded{margin-left:60px;}
+.topbar{background:#fff;padding:12px 24px;border-bottom:2px solid var(--or);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;}
+.content{padding:20px 24px;}
+.stat-card{border-radius:12px;padding:16px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.2);margin-bottom:12px;}
+.stat-card .num{font-size:1.4rem;font-weight:800;}
+.stat-card .lbl{font-size:11px;opacity:.9;}
+.section-title{font-weight:700;color:var(--bn);font-size:14px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--bn);}
+.stock-card{background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);overflow:hidden;margin-bottom:10px;}
+.stock-header{padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;}
+.stock-header:hover{background:#f8f9fa;}
+.stock-body{display:none;padding:14px 16px;background:#f9fafb;border-top:1px solid #eee;}
+.stock-body.open{display:block;}
+.photo-box{width:70px;height:70px;border-radius:10px;object-fit:cover;border:2px solid #eee;}
+.photo-placeholder{width:70px;height:70px;border-radius:10px;background:#f0f2f5;border:2px dashed #ccc;display:flex;align-items:center;justify-content:center;color:#888;font-size:20px;flex-shrink:0;}
+.prog{height:10px;background:#eee;border-radius:5px;overflow:hidden;margin-top:4px;}
+.prog-fill{height:100%;border-radius:5px;}
+.badge-ok{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-warn{background:#FFF3E0;color:#E65100;border:2px solid #FFB74D;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.badge-crit{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.btn-or{background:linear-gradient(135deg,#F57C00,#FF9800);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-vt{background:linear-gradient(135deg,#1B5E20,#2E7D32);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-bn{background:var(--bn);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.form-control,.form-select{border-radius:8px;border:1.5px solid #ddd;font-size:12px;padding:7px 10px;}
+.form-control:focus,.form-select:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(245,124,0,0.15);}
+.mouv-entree{border-left:4px solid #66BB6A;}
+.mouv-sortie{border-left:4px solid #EF5350;}
+.mouv-defaut{border-left:4px solid #FFB74D;}
+.mouv-collegue{border-left:4px solid #42A5F5;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;}
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <div class="logo">
+    <div style="font-size:28px;">📦</div>
+    <h5>Gestion Stock</h5>
+  </div>
+  <a href="/stock" class="active"><i class="fas fa-boxes"></i><span>Stock</span></a>
+  <a href="#mouvements" onclick="goSec('mouvements',this)"><i class="fas fa-history"></i><span>Mouvements</span></a>
+  <div style="position:absolute;bottom:0;width:100%;border-top:1px solid rgba(255,255,255,0.15);padding:5px 0;">
+    <a href="/moi"><i class="fas fa-chart-bar"></i><span>Mon tableau</span></a>
+    <a href="/anja"><i class="fas fa-truck"></i><span>Tableau Anja</span></a>
+  </div>
+</div>
+<button class="toggle-btn" id="toggle-btn" onclick="toggleSidebar()">
+  <i class="fas fa-chevron-left" id="toggle-icon" style="font-size:10px;"></i>
+</button>
+
+<div class="main" id="main">
+  <div class="topbar">
+    <span style="font-weight:800;color:var(--bn);font-size:14px;">📦 Gestion Stock — Livraison Andravohangy</span>
+    <div style="display:flex;gap:8px;">
+      <span class="text-muted small"><i class="fas fa-calendar me-1"></i>{{today}}</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+  <!-- STATS GLOBALES -->
+  {% set total_val = namespace(v=0) %}
+  {% set total_art = namespace(n=0) %}
+  {% set critiques = namespace(n=0) %}
+  {% for s in stock %}
+    {% set total_val.v = total_val.v + s.qte * s.prix_achat %}
+    {% set total_art.n = total_art.n + s.qte %}
+    {% if s.qte_init > 0 and (s.qte * 100 // s.qte_init) <= 20 %}{% set critiques.n = critiques.n + 1 %}{% endif %}
+  {% endfor %}
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,var(--bn),#1a2d5a);">
+        <div class="num">{{total_art.n}} pcs</div><div class="lbl"><i class="fas fa-boxes me-1"></i>Total articles en stock</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#1B5E20,#2E7D32);">
+        <div class="num" style="font-size:1.1rem;">{{"{:,}".format(total_val.v).replace(",",".")}} Ar</div>
+        <div class="lbl"><i class="fas fa-coins me-1"></i>Valeur totale stock</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#B71C1C,#EF5350);">
+        <div class="num">{{critiques.n}}</div><div class="lbl"><i class="fas fa-exclamation-triangle me-1"></i>Articles critiques (≤20%)</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#E65100,#F57C00);">
+        <div class="num">{{stock|length}}</div><div class="lbl"><i class="fas fa-tag me-1"></i>Références total</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOCK PAR CATEGORIE -->
+  {% for cat, data in categories.items() %}
+  <div class="section-title">
+    <i class="fas fa-tag me-2"></i>{{cat}}
+    {% set cat_val = namespace(v=0) %}
+    {% for s in stock if s.categorie==cat %}{% set cat_val.v = cat_val.v + s.qte * s.prix_achat %}{% endfor %}
+    <span style="font-size:12px;color:#888;font-weight:400;">Valeur: <strong style="color:var(--vt);">{{"{:,}".format(cat_val.v).replace(",",".")}} Ar</strong></span>
+  </div>
+
+  {% for s in stock if s.categorie==cat %}
+  {% set pct = [s.qte*100//s.qte_init if s.qte_init else 0, 100]|min %}
+  {% if pct <= 20 %}{% set alert_class = 'badge-crit' %}{% set prog_color = '#EF5350' %}{% set card_border = 'border-left:4px solid #EF5350;' %}
+  {% elif pct <= 50 %}{% set alert_class = 'badge-warn' %}{% set prog_color = '#FFB74D' %}{% set card_border = 'border-left:4px solid #FFB74D;' %}
+  {% else %}{% set alert_class = 'badge-ok' %}{% set prog_color = '#66BB6A' %}{% set card_border = '' %}{% endif %}
+
+  <div class="stock-card" style="{{card_border}}">
+    <div class="stock-header" onclick="toggleStock(this)">
+      <!-- Photo -->
+      {% if s.photo %}
+      <img src="/static/photos/{{s.photo}}" class="photo-box" alt="{{s.ref}}">
+      {% else %}
+      <div class="photo-placeholder"><i class="fas fa-image"></i></div>
+      {% endif %}
+      <!-- Info -->
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:15px;font-weight:800;color:var(--bn);">Réf {{s.ref}}</span>
+          <span class="{{alert_class}}">{{pct}}% restant</span>
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:2px;">{{s.categorie}}</div>
+        <div class="prog mt-1" style="width:200px;">
+          <div class="prog-fill" style="width:{{pct}}%;background:{{prog_color}};"></div>
+        </div>
+      </div>
+      <!-- Stats rapides -->
+      <div style="text-align:right;min-width:140px;">
+        <div style="font-size:16px;font-weight:800;color:var(--bn);">{{s.qte}} / {{s.qte_init}}</div>
+        <div style="font-size:11px;color:#888;">Stock actuel / Initial</div>
+        <div style="font-size:12px;font-weight:700;color:var(--vt);">{{"{:,}".format(s.qte*s.prix_achat).replace(",",".")}} Ar</div>
+        <div style="font-size:10px;color:#888;">Valeur (px achat)</div>
+      </div>
+      <i class="fas fa-chevron-down text-muted ms-2" style="font-size:12px;"></i>
+    </div>
+
+    <div class="stock-body">
+      <div class="row g-3">
+        <!-- Infos détaillées -->
+        <div class="col-md-4">
+          <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #eee;">
+            <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:8px;">Informations</div>
+            <div class="d-flex justify-content-between mb-1"><span style="font-size:12px;">Prix achat</span><strong>{{"{:,}".format(s.prix_achat).replace(",",".")}} Ar</strong></div>
+            <div class="d-flex justify-content-between mb-1"><span style="font-size:12px;">Prix vente</span><strong>{{"{:,}".format(s.prix_vente).replace(",",".")}} Ar</strong></div>
+            <hr style="margin:8px 0;">
+            <form method="POST" action="/stock/prix/{{s.ref}}">
+              <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:6px;">Modifier les prix</div>
+              <div class="mb-2"><input type="number" name="prix_achat" class="form-control" placeholder="Nouveau prix achat" value="{{s.prix_achat}}"></div>
+              <div class="mb-2"><input type="number" name="prix_vente" class="form-control" placeholder="Nouveau prix vente" value="{{s.prix_vente}}"></div>
+              <button type="submit" class="btn-bn w-100" style="font-size:11px;">💾 Mettre à jour les prix</button>
+            </form>
+            <div class="d-flex justify-content-between mb-1"><span style="font-size:12px;">Vendu</span><strong>{{s.qte_init - s.qte}} pcs</strong></div>
+            <div class="d-flex justify-content-between"><span style="font-size:12px;">Valeur stock</span><strong style="color:var(--vt);">{{"{:,}".format(s.qte*s.prix_achat).replace(",",".")}} Ar</strong></div>
+          </div>
+          <!-- Upload photo -->
+          <div style="margin-top:10px;">
+            <form method="POST" action="/stock/photo/{{s.ref}}" enctype="multipart/form-data">
+              <label style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;">Photo</label>
+              <div class="d-flex gap-2 mt-1">
+                <input type="file" name="photo" accept="image/*" class="form-control" style="font-size:11px;">
+                <button type="submit" class="btn-bn" style="font-size:11px;padding:5px 10px;white-space:nowrap;">Upload</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Entrée stock -->
+        <div class="col-md-4">
+          <div style="background:#E8F5E9;border-radius:10px;padding:12px;border:1px solid #66BB6A;">
+            <div style="font-size:11px;font-weight:700;color:#1B5E20;text-transform:uppercase;margin-bottom:8px;"><i class="fas fa-plus-circle me-1"></i>Entrée stock</div>
+            <form method="POST" action="/stock/entree">
+              <input type="hidden" name="ref" value="{{s.ref}}">
+              <div class="mb-2"><input type="number" name="qte" class="form-control" placeholder="Quantité reçue" min="1"></div>
+              <div class="mb-2"><input type="number" name="prix_achat" class="form-control" placeholder="Prix achat (Ar)" value="{{s.prix_achat}}"></div>
+              <div class="mb-2"><input type="text" name="notes" class="form-control" placeholder="Notes (fournisseur...)"></div>
+              <button type="submit" class="btn-vt w-100">+ Entrée</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Actions spéciales -->
+        <div class="col-md-4">
+          <!-- Défaut -->
+          <div style="background:#FFF3E0;border-radius:10px;padding:12px;border:1px solid #FFB74D;margin-bottom:10px;">
+            <div style="font-size:11px;font-weight:700;color:#E65100;text-transform:uppercase;margin-bottom:8px;"><i class="fas fa-exclamation-triangle me-1"></i>Défaut / Non vendable</div>
+            <form method="POST" action="/stock/defaut">
+              <input type="hidden" name="ref" value="{{s.ref}}">
+              <div class="mb-2"><input type="number" name="qte" class="form-control" placeholder="Quantité défectueuse" min="1"></div>
+              <div class="mb-2"><input type="text" name="notes" class="form-control" placeholder="Raison du défaut"></div>
+              <button type="submit" class="btn-or w-100">Signaler défaut</button>
+            </form>
+          </div>
+          <!-- Vente collègue -->
+          <div style="background:#E3F2FD;border-radius:10px;padding:12px;border:1px solid #42A5F5;">
+            <div style="font-size:11px;font-weight:700;color:#0D47A1;text-transform:uppercase;margin-bottom:8px;"><i class="fas fa-user-friends me-1"></i>Vente collègue (prix achat)</div>
+            <form method="POST" action="/stock/vente_collegue">
+              <input type="hidden" name="ref" value="{{s.ref}}">
+              <div class="mb-2"><input type="number" name="qte" class="form-control" placeholder="Quantité" min="1"></div>
+              <div class="mb-2"><input type="number" name="prix_achat" class="form-control" placeholder="Prix achat (Ar)" value="{{s.prix_achat}}"></div>
+              <div class="mb-2"><input type="number" name="remise" class="form-control" placeholder="Remise (Ar) — optionnel"></div>
+              <div class="mb-2"><input type="text" name="notes" class="form-control" placeholder="Nom collègue"></div>
+              <button type="submit" class="btn-bn w-100">Vente collègue</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endfor %}
+
+  <!-- MOUVEMENTS -->
+  <div class="section-title" id="mouvements"><i class="fas fa-history me-2"></i>Historique des mouvements</div>
+  <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+  <table class="table table-hover mb-0" style="font-size:12px;">
+    <thead style="background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;">
+      <tr><th>Date</th><th>Réf</th><th>Type</th><th>Qté</th><th>Prix achat</th><th>Remise</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+    {% for m in mouvements %}
+    <tr class="{{'mouv-entree' if m.type=='entree' else ('mouv-defaut' if m.type=='defaut' else ('mouv-collegue' if m.type=='collegue' else 'mouv-sortie'))}}">
+      <td>{{m.date}}</td>
+      <td><span class="badge bg-primary" style="font-size:10px;">{{m.ref}}</span></td>
+      <td>
+        {% if m.type=='entree' %}<span style="color:#1B5E20;font-weight:700;">📥 Entrée</span>
+        {% elif m.type=='defaut' %}<span style="color:#E65100;font-weight:700;">⚠️ Défaut</span>
+        {% elif m.type=='collegue' %}<span style="color:#0D47A1;font-weight:700;">👥 Collègue</span>
+        {% else %}<span style="color:#B71C1C;font-weight:700;">📤 Sortie</span>{% endif %}
+      </td>
+      <td style="font-weight:700;">{{m.qte}} pcs</td>
+      <td>{% if m.prix_achat %}{{"{:,}".format(m.prix_achat).replace(",",".")}} Ar{% else %}—{% endif %}</td>
+      <td>{% if m.remise %}{{"{:,}".format(m.remise).replace(",",".")}} Ar{% else %}—{% endif %}</td>
+      <td style="font-size:11px;color:#666;">{{m.notes or '—'}}</td>
+    </tr>
+    {% endfor %}
+    {% if not mouvements %}
+    <tr><td colspan="7" style="text-align:center;color:#888;padding:20px;">Aucun mouvement enregistré</td></tr>
+    {% endif %}
+    </tbody>
+  </table>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const mn=document.getElementById('main');
+  const btn=document.getElementById('toggle-btn');
+  const icon=document.getElementById('toggle-icon');
+  sb.classList.toggle('collapsed');mn.classList.toggle('expanded');btn.classList.toggle('col');
+  icon.className=sb.classList.contains('collapsed')?'fas fa-chevron-right':'fas fa-chevron-left';
+  icon.style.fontSize='10px';
+}
+function toggleStock(el){el.nextElementSibling.classList.toggle('open');}
+function goSec(id,a){
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.sidebar a').forEach(x=>x.classList.remove('active'));
+  a.classList.add('active');
+}
+</script>
+</body>
+</html>

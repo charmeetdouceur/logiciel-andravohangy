@@ -4,306 +4,357 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Livraison Andravohangy — Anja</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
-body{background:#F0F2F5;font-size:13px;color:#0D1B3E;}
-.topbar{background:#0D1B3E;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.topbar h1{font-size:16px;font-weight:800;}
-.container{max-width:1500px;margin:0 auto;padding:14px;}
-.banner{background:#0D1B3E;border-radius:12px;padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:14px;}
-.bitem label{font-size:10px;color:#90CAF9;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
-.bitem p{font-size:22px;font-weight:800;color:#fff;}
-/* ALERTES */
-.alert-rg{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.alert-or{background:#FFF3E0;border-left:5px solid #F57C00;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#E65100;font-size:12px;font-weight:700;}
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px;}
-.stat{background:#fff;border-radius:10px;padding:10px 12px;text-align:center;border-top:4px solid #eee;}
-.stat label{font-size:10px;color:#666;text-transform:uppercase;display:block;margin-bottom:4px;font-weight:600;}
-.stat p{font-size:24px;font-weight:800;}
-/* FRAIS */
-.frais-box{background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:14px;border-left:5px solid #F57C00;}
-.frais-title{font-size:11px;font-weight:800;color:#0D1B3E;margin-bottom:10px;text-transform:uppercase;}
-.frais-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
-.frais-item{background:#FFF3E0;border-radius:8px;padding:8px 12px;border:1px solid #FFB74D;}
-.frais-item strong{display:block;color:#0D1B3E;font-size:12px;font-weight:800;}
-.frais-item span{font-size:12px;color:#E65100;font-weight:700;}
-/* TOOLBAR */
-.toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center;}
-.toolbar input,.toolbar select{font-size:12px;padding:7px 10px;border-radius:7px;border:1.5px solid #ddd;background:#fff;}
-.btn-or{background:#F57C00;color:#fff;border:none;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:800;}
-.btn-bn{background:#0D1B3E;color:#fff;border:none;padding:8px 14px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:700;}
-.btn-vt{background:#2E7D32;color:#fff;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;}
-.btn-rg{background:#C62828;color:#fff;border:none;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:11px;}
-/* FILTRES */
-.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
-.fbtn{font-size:11px;padding:5px 12px;border-radius:20px;border:2px solid #ddd;background:#fff;cursor:pointer;color:#555;font-weight:600;}
-/* TABLEAU */
-.tbl-wrap{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;}
-table{width:100%;border-collapse:collapse;}
-th{font-size:10px;color:#fff;background:#0D1B3E;padding:9px 10px;text-align:left;white-space:nowrap;font-weight:700;}
-td{padding:9px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-size:12px;}
-/* COULEURS STATUTS — TOUTE LA LIGNE */
-.row-liv td{background:#E8F5E9 !important;}
-.row-mm td{background:#E3F2FD !important;}
-.row-att td{background:#FFF8E1 !important;}
-.row-ann td{background:#FFEBEE !important;}
-.row-ret td{background:#F3E5F5 !important;}
-.row-chg td{background:#FBE9E7 !important;}
-/* BADGES */
-.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.b-liv{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;}
-.b-mm{background:#E3F2FD;color:#0D47A1;border:2px solid #42A5F5;}
-.b-att{background:#FFF3E0;color:#E65100;border:2px solid #FFB74D;}
-.b-ann{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;}
-.b-ret{background:#F3E5F5;color:#4A148C;border:2px solid #AB47BC;}
-.b-chg{background:#FBE9E7;color:#BF360C;border:2px solid #FF7043;}
-/* TYPE PILLS */
-.type-pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#0D1B3E;color:#fff;margin:1px;}
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:center;justify-content:center;}
-.modal-bg.open{display:flex;}
-.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;}
-.modal h2{font-size:16px;font-weight:800;color:#0D1B3E;margin-bottom:16px;}
-.fg{margin-bottom:12px;}
-.fg label{font-size:11px;color:#555;display:block;margin-bottom:3px;font-weight:700;}
-.fg select,.fg textarea{width:100%;padding:8px 10px;border-radius:7px;border:1.5px solid #ddd;font-size:13px;}
+:root{--bn:#0D1B3E;--or:#F57C00;--vt:#1B5E20;--rg:#B71C1C;--bl:#0D47A1;--vio:#4A148C;--co:#BF360C;}
+body{font-family:Arial,sans-serif;background:#f0f2f5;font-size:13px;}
+.sidebar{min-height:100vh;background:linear-gradient(180deg,var(--bn) 0%,#1a2d5a 100%);width:240px;position:fixed;top:0;left:0;z-index:100;transition:width .3s;overflow:hidden;}
+.sidebar.collapsed{width:60px;}
+.sidebar .logo{text-align:center;color:#fff;padding:16px 10px;border-bottom:1px solid rgba(255,255,255,0.15);margin-bottom:5px;}
+.sidebar .logo h5{font-size:13px;font-weight:700;margin:5px 0 0;white-space:nowrap;}
+.sidebar .logo small{font-size:10px;color:#90CAF9;white-space:nowrap;}
+.sidebar.collapsed .logo h5,.sidebar.collapsed .logo small,.sidebar.collapsed a span,.sidebar.collapsed .menu-sec{display:none;}
+.sidebar a{display:flex;align-items:center;color:rgba(255,255,255,0.85);padding:9px 18px;text-decoration:none;border-left:3px solid transparent;font-size:12px;white-space:nowrap;transition:all .2s;}
+.sidebar a:hover,.sidebar a.active{background:rgba(255,255,255,0.12);color:#fff;border-left-color:var(--or);}
+.sidebar a i{width:20px;min-width:20px;margin-right:10px;font-size:13px;}
+.sidebar.collapsed a{padding:12px;justify-content:center;}
+.sidebar.collapsed a i{margin:0;}
+.menu-sec{font-size:10px;color:rgba(255,255,255,0.4);padding:8px 18px 2px;text-transform:uppercase;letter-spacing:1px;}
+.toggle-btn{position:fixed;top:50%;left:240px;transform:translateY(-50%);background:var(--or);border:none;color:#fff;width:18px;height:44px;border-radius:0 8px 8px 0;cursor:pointer;z-index:101;transition:left .3s;display:flex;align-items:center;justify-content:center;}
+.toggle-btn.col{left:60px;}
+.main{margin-left:240px;transition:margin-left .3s;}
+.main.expanded{margin-left:60px;}
+.topbar{background:#fff;padding:12px 24px;border-bottom:2px solid var(--or);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;}
+.topbar .brand{font-weight:800;color:var(--bn);font-size:14px;}
+.content{padding:20px 24px;}
+.stat-card{border-radius:12px;padding:16px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.2);margin-bottom:12px;}
+.stat-card .num{font-size:1.5rem;font-weight:800;}
+.stat-card .lbl{font-size:11px;opacity:.9;margin-top:2px;}
+.section-title{font-weight:700;color:var(--bn);font-size:14px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--bn);display:flex;align-items:center;justify-content:space-between;}
+.card{border:none;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);margin-bottom:12px;}
+.frais-item{background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border-radius:10px;padding:10px 14px;border-left:4px solid var(--or);}
+.frais-item strong{display:block;color:var(--bn);font-size:12px;font-weight:700;}
+.frais-item span{font-size:12px;color:#E65100;font-weight:600;}
+.qr-item{border-radius:10px;padding:12px 14px;cursor:pointer;transition:transform .2s;border:2px solid rgba(255,255,255,0.3);}
+.qr-item:hover{transform:translateY(-2px);}
+.badge-liv{background:#E8F5E9;color:#1B5E20;border:2px solid #66BB6A;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge-mm{background:#E3F2FD;color:#0D47A1;border:2px solid #42A5F5;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge-att{background:#FFF3E0;color:#E65100;border:2px solid #FFB74D;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge-ann{background:#FFEBEE;color:#B71C1C;border:2px solid #EF5350;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge-ret{background:#F3E5F5;color:#4A148C;border:2px solid #AB47BC;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge-chg{background:#FBE9E7;color:#BF360C;border:2px solid #FF7043;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.cmd-card{border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);margin-bottom:10px;overflow:hidden;background:#fff;}
+.cmd-card.liv{border-left:5px solid #66BB6A;}
+.cmd-card.mm{border-left:5px solid #42A5F5;}
+.cmd-card.att{border-left:5px solid #FFB74D;}
+.cmd-card.ann{border-left:5px solid #EF5350;}
+.cmd-card.ret{border-left:5px solid #AB47BC;}
+.cmd-card.chg{border-left:5px solid #FF7043;}
+.cmd-header{padding:12px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
+.cmd-header:hover{background:#f8f9fa;}
+.cmd-body{display:none;padding:12px 16px;background:#f9fafb;border-top:1px solid #eee;}
+.cmd-body.open{display:block;}
+.type-pill{display:inline-block;background:var(--bn);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin:1px;}
+.alert-warn{background:#FFEBEE;border-left:5px solid #C62828;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#B71C1C;font-size:12px;font-weight:600;}
+.alert-info{background:#FFF3E0;border-left:5px solid #F57C00;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#E65100;font-size:12px;font-weight:600;}
+.filter-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:2px solid #ddd;background:#fff;cursor:pointer;font-weight:600;transition:all .2s;}
+.filter-btn.active{background:var(--bn);color:#fff;border-color:var(--bn);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;}
+.btn-or{background:linear-gradient(135deg,#F57C00,#FF9800);border:none;color:#fff;border-radius:8px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-vt{background:linear-gradient(135deg,#1B5E20,#2E7D32);border:none;color:#fff;border-radius:8px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-bn{background:var(--bn);border:none;color:#fff;border-radius:8px;padding:8px 14px;font-weight:700;font-size:12px;cursor:pointer;}
+.btn-rg{background:var(--rg);border:none;color:#fff;border-radius:8px;padding:6px 10px;font-weight:700;font-size:11px;cursor:pointer;}
+.form-control,.form-select{border-radius:8px;border:1.5px solid #ddd;font-size:12px;padding:7px 10px;}
+.form-control:focus,.form-select:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(245,124,0,0.15);}
 .motif-box{display:none;background:#FFF3E0;border-radius:8px;padding:12px;margin-top:8px;border:1.5px solid #FFB74D;}
 .motif-box.show{display:block;}
-.btn-save{background:#0D1B3E;color:#fff;border:none;padding:10px 20px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;}
-.btn-cancel{background:#fff;color:#555;border:1.5px solid #ddd;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:13px;}
-/* QR MODAL */
-.qr-modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:320px;text-align:center;}
-.qr-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 12px;}
-.qr-box{width:120px;height:120px;border:2px solid #ddd;border-radius:10px;margin:12px auto;display:flex;align-items:center;justify-content:center;}
-.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid #eee;align-items:center;}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div>
-    <h1>🚚 Livraison Andravohangy</h1>
-    <div style="font-size:11px;color:#90CAF9;margin-top:2px;">Tableau Anja — {{today}}</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="logo">
+    <div style="font-size:28px;">🚚</div>
+    <h5>Livraison Andravohangy</h5>
+    <small>Tableau Anja</small>
   </div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span style="color:#fff;font-size:13px;font-weight:600;" id="clock"></span>
-    <a href="/moi" style="text-decoration:none;"><button class="btn-bn">🔐 Christina</button></a>
+  <a href="/anja" class="active"><i class="fas fa-home"></i><span>Tableau de bord</span></a>
+  <div class="menu-sec">Livraisons</div>
+  <a href="#commandes" onclick="scrollTo('commandes')"><i class="fas fa-box"></i><span>Commandes du jour</span></a>
+  <a href="#qr" onclick="scrollTo('qr')"><i class="fas fa-qrcode"></i><span>QR Paiement</span></a>
+  <a href="#retours" onclick="scrollTo('retours')"><i class="fas fa-undo"></i><span>Retours</span></a>
+  <div class="sidebar-bottom" style="position:absolute;bottom:0;width:100%;border-top:1px solid rgba(255,255,255,0.15);padding:5px 0;">
+    <a href="/moi"><i class="fas fa-lock"></i><span>Christina 🔐</span></a>
   </div>
 </div>
+<button class="toggle-btn" id="toggle-btn" onclick="toggleSidebar()">
+  <i class="fas fa-chevron-left" id="toggle-icon" style="font-size:10px;"></i>
+</button>
 
-<div class="container">
+<!-- MAIN -->
+<div class="main" id="main">
+  <div class="topbar">
+    <span class="brand">🚚 Livraison Andravohangy — Anja</span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="text-muted small"><i class="fas fa-calendar me-1"></i>{{today}}</span>
+      <span class="text-muted small" id="clock"></span>
+    </div>
+  </div>
 
-<!-- Bannière CA -->
-<div class="banner">
-  <div class="bitem"><label>💵 Espèces à verser samedi</label><p style="color:#69F0AE;">{{"{:,}".format(ca_esp).replace(",",".")}} Ar</p></div>
-  <div class="bitem"><label>📱 Mobile money reçu</label><p style="color:#40C4FF;">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</p></div>
-  <div class="bitem"><label>➖ Frais MM déduits</label><p style="color:#FFD740;">{{"{:,}".format(frais_mm).replace(",",".")}} Ar</p></div>
-  <div class="bitem"><label>✅ Net MM après frais</label><p style="color:#69F0AE;">{{"{:,}".format(ca_mm - frais_mm).replace(",",".")}} Ar</p></div>
-</div>
+  <div class="content">
 
-<!-- Alertes retours non confirmés -->
-{% for cmd in commandes if cmd.statut in ['ann','ret','chg'] and not cmd.retour_anja %}
-<div class="alert-rg">
-  ⚠️ Retour NON confirmé — <strong>{{cmd.livreur}}</strong> / {{cmd.client}} — <em>{{cmd.motif or 'Sans motif'}}</em>
-  <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}" style="margin-left:auto;">
-    <button type="submit" class="btn-vt">✓ Confirmer réception pièces</button>
-  </form>
-</div>
-{% endfor %}
+  <!-- STATS -->
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#1B5E20,#2E7D32);">
+        <div class="num" id="st-liv">0</div><div class="lbl"><i class="fas fa-check me-1"></i>Livré espèces</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#0D47A1,#1565C0);">
+        <div class="num" id="st-mm">0</div><div class="lbl"><i class="fas fa-mobile me-1"></i>Mobile money</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#E65100,#F57C00);">
+        <div class="num" id="st-att">0</div><div class="lbl"><i class="fas fa-clock me-1"></i>En attente</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#B71C1C,#C62828);">
+        <div class="num" id="st-ann">0</div><div class="lbl"><i class="fas fa-times me-1"></i>Annulés</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#4A148C,#6A1B9A);">
+        <div class="num" id="st-ret">0</div><div class="lbl"><i class="fas fa-undo me-1"></i>Retours</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="stat-card" style="background:linear-gradient(135deg,#BF360C,#D84315);">
+        <div class="num" id="st-chg">0</div><div class="lbl"><i class="fas fa-edit me-1"></i>Chgt qté</div>
+      </div>
+    </div>
+  </div>
 
-{% for cmd in commandes if cmd.retour_anja==1 and cmd.retour_christina==0 and cmd.statut in ['ann','ret','chg'] %}
-<div class="alert-or">📦 Retour confirmé Anja ✓ — En attente réception Christina — <strong>{{cmd.livreur}}</strong> / {{cmd.client}}</div>
-{% endfor %}
+  <!-- BANNIERE CA -->
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,var(--bn),#1a2d5a);">
+        <div class="num" style="font-size:1.1rem;">{{"{:,}".format(ca_esp).replace(",",".")}} Ar</div>
+        <div class="lbl">💵 Espèces à verser samedi</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#006064,#00838F);">
+        <div class="num" style="font-size:1.1rem;">{{"{:,}".format(ca_mm).replace(",",".")}} Ar</div>
+        <div class="lbl">📱 Mobile money reçu</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#E65100,#F57C00);">
+        <div class="num" style="font-size:1.1rem;">{{"{:,}".format(frais_mm).replace(",",".")}} Ar</div>
+        <div class="lbl">➖ Frais MM déduits</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card" style="background:linear-gradient(135deg,#1B5E20,#2E7D32);">
+        <div class="num" style="font-size:1.1rem;">{{"{:,}".format(ca_mm-frais_mm).replace(",",".")}} Ar</div>
+        <div class="lbl">✅ Net MM après frais</div>
+      </div>
+    </div>
+  </div>
 
-<!-- Stats du jour -->
-{% set cnt={'liv':0,'mm':0,'att':0,'ann':0,'ret':0,'chg':0} %}
-{% for cmd in commandes if cmd.date==today %}
-  {% if cmd.statut=='liv' %}{% set _=cnt.update({'liv':cnt.liv+1}) %}
-  {% elif cmd.statut in ['mvola','orange','airtel'] %}{% set _=cnt.update({'mm':cnt.mm+1}) %}
-  {% elif cmd.statut=='att' %}{% set _=cnt.update({'att':cnt.att+1}) %}
-  {% elif cmd.statut=='ann' %}{% set _=cnt.update({'ann':cnt.ann+1}) %}
-  {% elif cmd.statut=='ret' %}{% set _=cnt.update({'ret':cnt.ret+1}) %}
-  {% elif cmd.statut=='chg' %}{% set _=cnt.update({'chg':cnt.chg+1}) %}
-  {% endif %}
-{% endfor %}
-<div class="stats">
-  <div class="stat" style="border-top-color:#2E7D32;"><label>Livré espèces</label><p style="color:#2E7D32;">{{cnt.liv}}</p></div>
-  <div class="stat" style="border-top-color:#1565C0;"><label>Mobile money</label><p style="color:#1565C0;">{{cnt.mm}}</p></div>
-  <div class="stat" style="border-top-color:#F57C00;"><label>En attente</label><p style="color:#F57C00;">{{cnt.att}}</p></div>
-  <div class="stat" style="border-top-color:#C62828;"><label>Annulés</label><p style="color:#C62828;">{{cnt.ann}}</p></div>
-  <div class="stat" style="border-top-color:#6A1B9A;"><label>Retours conf.</label><p style="color:#6A1B9A;">{{cnt.ret}}</p></div>
-  <div class="stat" style="border-top-color:#BF360C;"><label>Chgt qté</label><p style="color:#BF360C;">{{cnt.chg}}</p></div>
-</div>
+  <!-- ALERTES -->
+  <div id="alert-zone">
+  {% for cmd in commandes if cmd.statut in ['ann','ret','chg'] and not cmd.retour_anja %}
+  <div class="alert-warn">⚠️ Retour NON confirmé — <strong>{{cmd.livreur}}</strong> / {{cmd.client}} — {{cmd.motif or '—'}}
+    <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}" style="display:inline;margin-left:10px;">
+      <button type="submit" class="btn-vt" style="font-size:10px;padding:3px 8px;">✓ Confirmer réception</button>
+    </form>
+  </div>
+  {% endfor %}
+  {% for cmd in commandes if cmd.retour_anja==1 and cmd.retour_christina==0 and cmd.statut in ['ann','ret','chg'] %}
+  <div class="alert-info">📦 Retour confirmé Anja ✓ — En attente Christina — <strong>{{cmd.livreur}}</strong> / {{cmd.client}}</div>
+  {% endfor %}
+  </div>
 
-<!-- Frais livreurs du jour -->
-{% if frais_jour %}
-<div class="frais-box">
-  <div class="frais-title">💰 Frais livreurs aujourd'hui</div>
-  <div class="frais-grid">
+  <!-- FRAIS LIVREURS -->
+  {% if frais_jour %}
+  <div class="section-title"><span><i class="fas fa-coins me-2"></i>Frais livreurs aujourd'hui</span></div>
+  <div class="row g-2 mb-3">
     {% for f in frais_jour %}
-    <div class="frais-item">
-      <strong>{{f.livreur}}</strong>
-      <span>{{f.nb}} livraison(s) — {{"{:,}".format(f.tf or 0).replace(",",".")}} Ar</span>
+    <div class="col-6 col-md-3">
+      <div class="frais-item">
+        <strong>{{f.livreur}}</strong>
+        <span>{{f.nb}} livraison(s) — {{"{:,}".format(f.tf or 0).replace(",",".")}} Ar</span>
+      </div>
     </div>
     {% endfor %}
   </div>
-</div>
-{% endif %}
+  {% endif %}
 
-
-<!-- QR PAIEMENT GROUPÉ PAR LIVREUR -->
-{% set livreurs_att = [] %}
-{% for cmd in commandes if cmd.statut in ['att','chg'] %}
-  {% if cmd.livreur not in livreurs_att %}{% set _ = livreurs_att.append(cmd.livreur) %}{% endif %}
-{% endfor %}
-{% if livreurs_att %}
-<div style="background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:14px;border-left:5px solid #F57C00;">
-  <div style="font-size:11px;font-weight:800;color:#0D1B3E;margin-bottom:10px;text-transform:uppercase;">📱 QR Paiement — Livreurs en attente</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+  <!-- QR PAIEMENT GROUPÉ -->
+  {% set livreurs_att = [] %}
+  {% for cmd in commandes if cmd.statut in ['att','chg'] %}
+    {% if cmd.livreur not in livreurs_att %}{% set _ = livreurs_att.append(cmd.livreur) %}{% endif %}
+  {% endfor %}
+  {% if livreurs_att %}
+  <div class="section-title" id="qr"><span><i class="fas fa-qrcode me-2"></i>QR Paiement — Livreurs en attente</span></div>
+  <div class="row g-2 mb-3">
     {% for livreur in livreurs_att %}
     {% set total_att = namespace(val=0) %}
     {% for cmd in commandes if cmd.statut in ['att','chg'] and cmd.livreur==livreur %}
       {% set total_att.val = total_att.val + cmd.total %}
     {% endfor %}
-    <button onclick="showQRGroupe('{{livreur}}')" style="background:#0D1B3E;color:#fff;border:none;border-radius:8px;padding:10px 12px;cursor:pointer;text-align:left;">
-      <div style="font-size:12px;font-weight:800;">{{livreur}}</div>
-      <div style="font-size:11px;color:#FFD740;margin-top:2px;">{{"{:,}".format(total_att.val).replace(",",".")}} Ar à encaisser</div>
-      <div style="font-size:10px;color:#90CAF9;margin-top:4px;">📱 Afficher QR</div>
-    </button>
+    <div class="col-6 col-md-3">
+      <div class="qr-item" style="background:linear-gradient(135deg,var(--bn),#1a2d5a);color:#fff;" onclick="showQRGroupe('{{livreur}}')">
+        <div style="font-size:13px;font-weight:800;">{{livreur}}</div>
+        <div style="font-size:12px;color:#FFD740;margin-top:2px;">{{"{:,}".format(total_att.val).replace(",",".")}} Ar</div>
+        <div style="font-size:10px;color:#90CAF9;margin-top:4px;"><i class="fas fa-qrcode me-1"></i>Afficher QR</div>
+      </div>
+    </div>
     {% endfor %}
   </div>
-</div>
-{% endif %}
+  {% endif %}
 
-<!-- Toolbar -->
-<div class="toolbar">
-  <input type="text" id="search" placeholder="🔍 Client, lieu, livreur..." oninput="filterTable()" style="width:220px;">
-  <select id="fil-livreur" onchange="filterTable()">
-    <option value="">Tous livreurs</option>
-    {% for l in livreurs %}<option>{{l}}</option>{% endfor %}
-  </select>
-  <select id="fil-date" onchange="filterTable()">
-    <option value="">Toutes dates</option>
-    <option value="{{today}}" selected>Aujourd'hui</option>
-  </select>
-</div>
+  <!-- Filtre date -->
+  <div class="d-flex gap-2 align-items-center mb-3 flex-wrap">
+    <span style="font-size:12px;font-weight:700;color:#888;">FILTRER PAR DATE :</span>
+    <input type="date" id="filtre-date-anja" class="form-control" style="width:160px;" onchange="filtrerAnjaDate()" value="{{today}}">
+    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('filtre-date-anja').value='';filtrerAnjaDate()">Toutes les dates</button>
+    <span id="nb-anja" style="font-size:12px;color:#888;"></span>
+  </div>
 
-<!-- Filtres statut -->
-<div class="filters">
-  <span style="font-size:10px;color:#888;font-weight:800;margin-right:4px;">STATUT :</span>
-  <button class="fbtn" id="fb-all" onclick="setFilter('',this)" style="background:#0D1B3E;color:#fff;border-color:#0D1B3E;">Tous</button>
-  <button class="fbtn" onclick="setFilter('liv',this)">✅ Livré espèces</button>
-  <button class="fbtn" onclick="setFilter('mm',this)">📱 Mobile money</button>
-  <button class="fbtn" onclick="setFilter('att',this)">⏳ En attente</button>
-  <button class="fbtn" onclick="setFilter('ann',this)">❌ Annulé</button>
-  <button class="fbtn" onclick="setFilter('ret',this)">🔄 Retour conf.</button>
-  <button class="fbtn" onclick="setFilter('chg',this)">📝 Chgt qté</button>
-</div>
+  <!-- FILTRES -->
+  <div class="d-flex gap-2 flex-wrap mb-2">
+    <input type="text" id="search" class="form-control" placeholder="🔍 Client, lieu, livreur..." oninput="filterTable()" style="width:200px;">
+    <select id="fil-livreur" class="form-select" onchange="filterTable()" style="width:160px;">
+      <option value="">Tous livreurs</option>
+      {% for l in livreurs %}<option>{{l}}</option>{% endfor %}
+    </select>
+    <select id="fil-date" class="form-select" onchange="filterTable()" style="width:140px;">
+      <option value="">Toutes dates</option>
+      <option value="{{today}}" selected>Aujourd'hui</option>
+    </select>
+  </div>
+  <div class="d-flex gap-1 flex-wrap mb-3">
+    <button class="filter-btn active" onclick="setFilter('',this)">Tous</button>
+    <button class="filter-btn" onclick="setFilter('liv',this)">✅ Livré</button>
+    <button class="filter-btn" onclick="setFilter('mm',this)">📱 Mobile</button>
+    <button class="filter-btn" onclick="setFilter('att',this)">⏳ En attente</button>
+    <button class="filter-btn" onclick="setFilter('ann',this)">❌ Annulé</button>
+    <button class="filter-btn" onclick="setFilter('ret',this)">🔄 Retour</button>
+    <button class="filter-btn" onclick="setFilter('chg',this)">📝 Chgt qté</button>
+  </div>
 
-<!-- Tableau principal -->
-<div class="tbl-wrap">
-<table id="main-table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Client</th>
-      <th>Contact</th>
-      <th>Lieu</th>
-      <th>Livreur</th>
-      <th>Articles</th>
-      <th>Montant total</th>
-      <th>Frais</th>
-      <th>Statut</th>
-      <th>Motif annulation</th>
-      <th>Retour pièces</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
+  <!-- COMMANDES -->
+  <div class="section-title" id="commandes"><span><i class="fas fa-box me-2"></i>Commandes du jour</span></div>
+  <div id="cmd-list">
   {% for cmd in commandes %}
-  {% if cmd.statut=='liv' %}{% set rc='row-liv' %}
-  {% elif cmd.statut in ['mvola','orange','airtel'] %}{% set rc='row-mm' %}
-  {% elif cmd.statut=='att' %}{% set rc='row-att' %}
-  {% elif cmd.statut=='ann' %}{% set rc='row-ann' %}
-  {% elif cmd.statut=='ret' %}{% set rc='row-ret' %}
-  {% elif cmd.statut=='chg' %}{% set rc='row-chg' %}
-  {% else %}{% set rc='' %}{% endif %}
-  <tr class="{{rc}}" data-statut="{{cmd.statut}}" data-livreur="{{cmd.livreur}}" data-date="{{cmd.date}}" data-search="{{cmd.client}} {{cmd.adresse}} {{cmd.livreur}}">
-    <td style="white-space:nowrap;font-weight:700;">{{cmd.date}}</td>
-    <td><strong>{{cmd.client}}</strong></td>
-    <td style="font-size:11px;color:#555;">{{cmd.contact}}</td>
-    <td style="font-size:11px;">{{cmd.adresse}}</td>
-    <td><strong style="color:#1a2d5a;">{{cmd.livreur}}</strong></td>
-    <td>
-      {% for t in cmd.types.split(' + ') if t != '—' %}
-        <span class="type-pill">{{t}}</span>
-      {% endfor %}
-      {% if cmd.types=='—' %}<span style="color:#ccc;">—</span>{% endif %}
-    </td>
-    <td style="font-size:15px;font-weight:800;color:#1B5E20;">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</td>
-    <td style="font-weight:700;color:#F57C00;">{{"{:,}".format(cmd.frais).replace(",",".")}} Ar</td>
-    <td>
-      {% if cmd.statut=='liv' %}<span class="badge b-liv">✅ Livré espèces</span>
-      {% elif cmd.statut=='mvola' %}<span class="badge b-mm">📱 Mvola</span>
-      {% elif cmd.statut=='orange' %}<span class="badge b-mm">📱 Orange</span>
-      {% elif cmd.statut=='airtel' %}<span class="badge b-mm">📱 Airtel</span>
-      {% elif cmd.statut=='att' %}<span class="badge b-att">⏳ En attente</span>
-      {% elif cmd.statut=='ann' %}<span class="badge b-ann">❌ Annulé</span>
-      {% elif cmd.statut=='ret' %}<span class="badge b-ret">🔄 Retour conf.</span>
-      {% elif cmd.statut=='chg' %}<span class="badge b-chg">📝 Chgt qté</span>
+  {% if cmd.statut=='liv' %}{% set bc='liv' %}
+  {% elif cmd.statut in ['mvola','orange','airtel'] %}{% set bc='mm' %}
+  {% elif cmd.statut=='att' %}{% set bc='att' %}
+  {% elif cmd.statut=='ann' %}{% set bc='ann' %}
+  {% elif cmd.statut=='ret' %}{% set bc='ret' %}
+  {% elif cmd.statut=='chg' %}{% set bc='chg' %}
+  {% else %}{% set bc='att' %}{% endif %}
+  <div class="cmd-card {{bc}}" data-statut="{{cmd.statut}}" data-livreur="{{cmd.livreur}}" data-date="{{cmd.date}}" data-search="{{cmd.client}} {{cmd.adresse}} {{cmd.livreur}}">
+    <div class="cmd-header" onclick="toggleCmd(this)">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--bn);">
+          <i class="fas fa-user me-1 text-muted"></i>{{cmd.client}}
+          &nbsp;
+          {% if cmd.statut=='liv' %}<span class="badge-liv">✅ Livré</span>
+          {% elif cmd.statut in ['mvola','orange','airtel'] %}<span class="badge-mm">📱 {{cmd.statut|upper}}</span>
+          {% elif cmd.statut=='att' %}<span class="badge-att">⏳ En attente</span>
+          {% elif cmd.statut=='ann' %}<span class="badge-ann">❌ Annulé</span>
+          {% elif cmd.statut=='ret' %}<span class="badge-ret">🔄 Retour conf.</span>
+          {% elif cmd.statut=='chg' %}<span class="badge-chg">📝 Chgt qté</span>
+          {% endif %}
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:2px;">
+          <i class="fas fa-motorcycle me-1"></i><strong>{{cmd.livreur}}</strong>
+          &nbsp;|&nbsp;<i class="fas fa-map-marker-alt me-1"></i>{{cmd.adresse}}
+          &nbsp;|&nbsp;<i class="fas fa-money-bill me-1"></i>Frais: {{"{:,}".format(cmd.frais).replace(",",".")}} Ar
+          &nbsp;|&nbsp;{% for t in cmd.types.split(' + ') if t!='—' %}<span class="type-pill">{{t}}</span>{% endfor %}
+        </div>
+        {% if cmd.motif %}<div style="font-size:10px;color:#B71C1C;margin-top:2px;"><i class="fas fa-exclamation-circle me-1"></i>{{cmd.motif}}{% if cmd.motif=='Autre' and cmd.motif_autre %} : {{cmd.motif_autre}}{% endif %}</div>{% endif %}
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:16px;font-weight:800;color:#1B5E20;">{{"{:,}".format(cmd.total).replace(",",".")}} Ar</span>
+        <i class="fas fa-chevron-down text-muted" style="font-size:12px;"></i>
+      </div>
+    </div>
+    <div class="cmd-body">
+      <!-- Articles -->
+      {% if cmd.articles %}
+      <div class="mb-2">
+        {% for a in cmd.articles %}
+        <div class="d-flex justify-content-between align-items-center p-2 mb-1" style="background:#fff;border-radius:8px;border:1px solid #eee;">
+          <span style="font-size:12px;"><strong>{{a.nom or a.ref}}</strong> <span class="badge bg-secondary" style="font-size:10px;">{{a.ref}}</span></span>
+          <span style="font-size:12px;">x{{a.qte}} — <strong style="color:#1B5E20;">{{"{:,}".format(a.qte*a.prix_unitaire).replace(",",".")}} Ar</strong></span>
+        </div>
+        {% endfor %}
+      </div>
       {% endif %}
-    </td>
-    <td style="font-size:11px;color:#555;max-width:130px;">
-      {% if cmd.motif %}<strong>{{cmd.motif}}</strong>{% if cmd.motif=='Autre' and cmd.motif_autre %}<br><em style="color:#888;">{{cmd.motif_autre}}</em>{% endif %}{% else %}<span style="color:#ccc;">—</span>{% endif %}
-    </td>
-    <td>
-      {% if cmd.statut in ['ann','ret','chg'] %}
-        {% if cmd.retour_anja %}
-          <div style="font-size:11px;">
-            <span style="color:#2E7D32;font-weight:800;">✓ Anja</span><br>
-            {% if cmd.retour_christina %}<span style="color:#2E7D32;font-weight:800;">✓ Christina</span>
-            {% else %}<span style="color:#F57C00;font-weight:700;">⏳ Christina...</span>{% endif %}
-          </div>
-        {% else %}
-          <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}">
-            <button type="submit" class="btn-vt">✓ Je confirme</button>
-          </form>
+      <!-- Actions -->
+      <div class="d-flex gap-2 flex-wrap mt-2">
+        <!-- Modifier livreur -->
+        <form method="POST" action="/anja/modifier_livreur/{{cmd.id}}" style="display:inline-flex;gap:4px;align-items:center;">
+          <select name="livreur" class="form-select" style="width:150px;font-size:11px;padding:4px 8px;">
+            {% for l in livreurs %}<option value="{{l}}" {{'selected' if l==cmd.livreur}}>{{l}}</option>{% endfor %}
+          </select>
+          <button type="submit" class="btn-or" style="font-size:11px;padding:5px 10px;">💾 Livreur</button>
+        </form>
+        <!-- Modifier statut -->
+        <button class="btn-or" style="font-size:11px;padding:5px 10px;" onclick="openStatut({{cmd.id}},'{{cmd.statut}}')"><i class="fas fa-edit me-1"></i>Statut</button>
+        <!-- Retour pièces -->
+        {% if cmd.statut in ['ann','ret','chg'] %}
+          {% if cmd.retour_anja %}
+            <span style="font-size:11px;color:#1B5E20;font-weight:700;align-self:center;">✓ Anja {% if cmd.retour_christina %}✓ Christina{% else %}<span style="color:#F57C00;">⏳ Christina...</span>{% endif %}</span>
+          {% else %}
+            <form method="POST" action="/anja/confirmer_retour/{{cmd.id}}" style="display:inline;">
+              <button type="submit" class="btn-vt" style="font-size:11px;padding:5px 10px;">✓ Retour reçu</button>
+            </form>
+          {% endif %}
         {% endif %}
-      {% else %}<span style="color:#ddd;">—</span>{% endif %}
-    </td>
-
-    <td style="display:flex;gap:4px;">
-      <button class="btn-or" style="font-size:11px;padding:5px 9px;" onclick="openStatut({{cmd.id}},'{{cmd.statut}}')">Modifier</button>
-      <form method="POST" action="/anja/supprimer/{{cmd.id}}" onsubmit="return confirm('Supprimer ?')">
-        <button type="submit" class="btn-rg">✕</button>
-      </form>
-    </td>
-  </tr>
+        <!-- Supprimer -->
+        <form method="POST" action="/anja/supprimer/{{cmd.id}}" onsubmit="return confirm('Supprimer ?')" style="display:inline;">
+          <button type="submit" class="btn-rg" style="font-size:11px;padding:5px 10px;"><i class="fas fa-trash"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-  </tbody>
-</table>
-</div>
+  </div>
 
-<!-- Légende -->
-<div class="legend">
-  <span style="font-size:10px;color:#888;font-weight:800;">LÉGENDE :</span>
-  <span class="badge b-liv">✅ Livré + espèces</span>
-  <span class="badge b-mm">📱 Mobile money (province)</span>
-  <span class="badge b-att">⏳ En attente</span>
-  <span class="badge b-ann">❌ Annulé</span>
-  <span class="badge b-ret">🔄 Retour confirmé Anja</span>
-  <span class="badge b-chg">📝 Changement quantité</span>
-</div>
-</div>
+  <!-- LÉGENDE -->
+  <div class="d-flex flex-wrap gap-2 mt-3 pt-2" style="border-top:1px solid #eee;">
+    <span style="font-size:10px;color:#888;font-weight:700;">LÉGENDE :</span>
+    <span class="badge-liv">✅ Livré + espèces</span>
+    <span class="badge-mm">📱 Mobile money</span>
+    <span class="badge-att">⏳ En attente</span>
+    <span class="badge-ann">❌ Annulé</span>
+    <span class="badge-ret">🔄 Retour confirmé Anja</span>
+    <span class="badge-chg">📝 Changement quantité</span>
+  </div>
 
-<!-- Modal modifier statut -->
-<div class="modal-bg" id="modal-statut">
-<div class="modal">
-  <h2>Modifier le statut</h2>
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- Modal statut -->
+<div class="modal-overlay" id="modal-statut">
+<div class="modal-box">
+  <h5 style="font-weight:800;color:var(--bn);margin-bottom:16px;"><i class="fas fa-edit me-2"></i>Modifier le statut</h5>
   <form method="POST" id="statut-form">
-    <div class="fg">
-      <label>Nouveau statut</label>
-      <select name="statut" id="s-statut" onchange="toggleMotif(this.value)">
+    <div class="mb-3">
+      <label class="form-label fw-bold small text-muted">NOUVEAU STATUT</label>
+      <select name="statut" id="s-statut" class="form-select" onchange="toggleMotif(this.value)">
         <option value="att">⏳ En attente</option>
         <option value="liv">✅ Livré espèces</option>
         <option value="mvola">📱 Mvola</option>
@@ -315,57 +366,101 @@ td{padding:9px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-s
       </select>
     </div>
     <div class="motif-box" id="motif-box">
-      <div class="fg">
-        <label>Raison d'annulation / retour</label>
-        <select name="motif" id="s-motif" onchange="toggleAutre(this.value)">
+      <div class="mb-2">
+        <label class="form-label fw-bold small text-muted">RAISON</label>
+        <select name="motif" id="s-motif" class="form-select" onchange="toggleAutre(this.value)">
           <option value="">-- Choisir --</option>
           {% for m in motifs %}<option>{{m}}</option>{% endfor %}
         </select>
       </div>
-      <div class="fg" id="autre-box" style="display:none;">
-        <label>Préciser</label>
-        <textarea name="motif_autre" rows="2" placeholder="Décrivez le motif..."></textarea>
+      <div id="autre-box" style="display:none;">
+        <label class="form-label fw-bold small text-muted">PRÉCISER</label>
+        <textarea name="motif_autre" class="form-control" rows="2" placeholder="Décrivez..."></textarea>
       </div>
     </div>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
-      <button type="button" class="btn-cancel" onclick="closeStatut()">Annuler</button>
-      <button type="submit" class="btn-save">Enregistrer</button>
+    <div class="d-flex gap-2 justify-content-end mt-3">
+      <button type="button" class="btn btn-light" onclick="closeStatut()">Annuler</button>
+      <button type="submit" class="btn-bn">Enregistrer</button>
     </div>
   </form>
 </div>
 </div>
 
-<!-- Modal QR -->
-<div class="modal-bg" id="modal-qr">
-<div class="qr-modal">
-  <div class="qr-avatar" id="qr-avatar">MB</div>
-  <h2 id="qr-livreur" style="font-size:18px;font-weight:800;color:#0D1B3E;margin-bottom:4px;"></h2>
-  <p id="qr-client" style="font-size:12px;color:#666;margin-bottom:4px;"></p>
-  <p id="qr-montant" style="font-size:20px;font-weight:800;color:#1B5E20;margin-bottom:12px;"></p>
-  <div class="qr-box" id="qr-svg"></div>
-  <p style="font-size:11px;color:#888;margin-bottom:16px;line-height:1.6;">Le livreur montre ce QR à Anja.<br>Anja confirme la réception du paiement.</p>
-  <div style="display:flex;gap:8px;justify-content:center;">
-    <button class="btn-vt" style="font-size:13px;padding:8px 16px;" id="qr-confirmer">✓ Confirmer paiement reçu</button>
-    <button class="btn-cancel" onclick="closeQR()">Fermer</button>
-  </div>
+<!-- Modal QR groupé -->
+<div class="modal-overlay" id="modal-qr">
+<div class="modal-box" style="max-width:440px;text-align:center;">
+  <div id="qr-content"></div>
+  <button onclick="document.getElementById('modal-qr').classList.remove('open')" class="btn btn-light mt-2">Fermer</button>
 </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-let activeFilter='';
-const LIVREUR_COLORS={'Mbola':'#1565C0','Patrick':'#2E7D32','Sarobidy Nomena':'#854F0B','Toky':'#4A148C','Solo':'#BF360C','Daniel':'#006064','Andry':'#0D1B3E','Ando':'#C62828'};
+const COMMANDES = {{ commandes|tojson }};
+const LIV_COLORS = {'Mbola':'#1565C0','Patrick':'#2E7D32','Sarobidy Nomena':'#854F0B','Toky':'#4A148C','Solo':'#BF360C','Daniel':'#006064','Andry':'#0D1B3E','Ando':'#C62828'};
 
+function filtrerAnjaDate(){
+  const d=document.getElementById('filtre-date-anja').value;
+  const cards=document.querySelectorAll('.cmd-card');
+  let visible=0;
+  cards.forEach(c=>{
+    const cd=c.dataset.date||'';
+    const show=!d||cd===d;
+    c.style.display=show?'':'none';
+    if(show) visible++;
+  });
+  const nb=document.getElementById('nb-anja');
+  if(nb) nb.textContent=visible+' livraison(s)';
+}
+window.addEventListener('load',function(){filtrerAnjaDate();});
+
+// Stats
+(function(){
+  const cnt={liv:0,mm:0,att:0,ann:0,ret:0,chg:0};
+  const today='{{today}}';
+  COMMANDES.forEach(c=>{
+    if(c.date!==today) return;
+    if(c.statut==='liv') cnt.liv++;
+    else if(['mvola','orange','airtel'].includes(c.statut)) cnt.mm++;
+    else if(c.statut==='att') cnt.att++;
+    else if(c.statut==='ann') cnt.ann++;
+    else if(c.statut==='ret') cnt.ret++;
+    else if(c.statut==='chg') cnt.chg++;
+  });
+  document.getElementById('st-liv').textContent=cnt.liv;
+  document.getElementById('st-mm').textContent=cnt.mm;
+  document.getElementById('st-att').textContent=cnt.att;
+  document.getElementById('st-ann').textContent=cnt.ann;
+  document.getElementById('st-ret').textContent=cnt.ret;
+  document.getElementById('st-chg').textContent=cnt.chg;
+})();
+
+// Sidebar
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const mn=document.getElementById('main');
+  const btn=document.getElementById('toggle-btn');
+  const icon=document.getElementById('toggle-icon');
+  sb.classList.toggle('collapsed');
+  mn.classList.toggle('expanded');
+  btn.classList.toggle('col');
+  icon.className=sb.classList.contains('collapsed')?'fas fa-chevron-right':'fas fa-chevron-left';
+  icon.style.fontSize='10px';
+}
+
+// Filter
+let activeFilter='';
 function setFilter(f,btn){
   activeFilter=f;
-  document.querySelectorAll('.fbtn').forEach(b=>{b.style.background='';b.style.color='#555';b.style.borderColor='#ddd';});
-  btn.style.background='#0D1B3E';btn.style.color='#fff';btn.style.borderColor='#0D1B3E';
+  document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('active');});
+  btn.classList.add('active');
   filterTable();
 }
 function filterTable(){
   const s=(document.getElementById('search').value||'').toLowerCase();
   const l=document.getElementById('fil-livreur').value;
   const d=document.getElementById('fil-date').value;
-  document.querySelectorAll('#main-table tbody tr').forEach(r=>{
+  document.querySelectorAll('.cmd-card').forEach(r=>{
     const st=r.dataset.statut;
     let mF=true;
     if(activeFilter==='mm') mF=['mvola','orange','airtel'].includes(st);
@@ -373,6 +468,11 @@ function filterTable(){
     r.style.display=(mF&&(!l||r.dataset.livreur===l)&&(!d||r.dataset.date===d)&&(!s||(r.dataset.search||'').toLowerCase().includes(s)))?'':'none';
   });
 }
+
+// Toggle commande
+function toggleCmd(el){el.nextElementSibling.classList.toggle('open');}
+
+// Statut modal
 function openStatut(id,statut){
   document.getElementById('statut-form').action='/anja/statut/'+id;
   document.getElementById('s-statut').value=statut;
@@ -384,27 +484,32 @@ document.getElementById('modal-statut').addEventListener('click',function(e){if(
 function toggleMotif(v){document.getElementById('motif-box').classList.toggle('show',['ann','ret','chg'].includes(v));}
 function toggleAutre(v){document.getElementById('autre-box').style.display=v==='Autre'?'block':'none';}
 
-let currentQRId=null;
-function showQR(id,livreur,client,total,frais){
-  currentQRId=id;
-  const col=LIVREUR_COLORS[livreur]||'#0D1B3E';
+// QR groupé
+function showQRGroupe(livreur){
+  const cmds=COMMANDES.filter(c=>c.livreur===livreur&&['att','chg'].includes(c.statut));
+  const total=cmds.reduce((s,c)=>s+c.total,0);
+  const col=LIV_COLORS[livreur]||'#0D1B3E';
   const ini=livreur.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  document.getElementById('qr-avatar').textContent=ini;
-  document.getElementById('qr-avatar').style.background=col+'22';
-  document.getElementById('qr-avatar').style.color=col;
-  document.getElementById('qr-avatar').style.border='2px solid '+col;
-  document.getElementById('qr-livreur').textContent=livreur;
-  document.getElementById('qr-client').textContent='Client: '+client;
-  document.getElementById('qr-montant').textContent=total.toLocaleString('fr-FR')+' Ar (frais: '+frais.toLocaleString('fr-FR')+' Ar)';
-  document.getElementById('qr-svg').innerHTML=genQR(livreur+'-'+id,col);
-  document.getElementById('qr-confirmer').onclick=function(){confirmerQR(id);};
+  const ids=cmds.map(c=>c.id);
+  const rows=cmds.map(c=>`<tr><td style="font-size:11px;padding:5px 8px;">${c.client}</td><td style="font-size:11px;padding:5px 8px;">${c.adresse||'—'}</td><td style="font-size:11px;padding:5px 8px;font-weight:700;color:#1B5E20;">${c.total.toLocaleString('fr-FR')} Ar</td></tr>`).join('');
+  document.getElementById('qr-content').innerHTML=`
+    <div style="width:54px;height:54px;border-radius:50%;background:${col}22;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:${col};margin:0 auto 8px;">${ini}</div>
+    <h5 style="font-weight:800;color:#0D1B3E;">${livreur}</h5>
+    <div style="font-size:22px;font-weight:800;color:#1B5E20;margin:8px 0;">${total.toLocaleString('fr-FR')} Ar</div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:14px;background:#f9f9f9;border-radius:8px;overflow:hidden;">
+      <thead><tr style="background:#0D1B3E;"><th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Client</th><th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Lieu</th><th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Montant</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div id="qr-svg" style="width:120px;height:120px;border:2px solid #ddd;border-radius:10px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;color:${col};"></div>
+    <div style="font-size:11px;color:#888;margin-bottom:14px;">${livreur} scanne ce QR avec son téléphone<br>Il voit le total à remettre à Anja</div>
+    <button onclick="confirmerGroupe(${JSON.stringify(ids)})" class="btn-vt" style="font-size:13px;padding:10px 20px;">✓ Confirmer paiement reçu — ${total.toLocaleString('fr-FR')} Ar</button>`;
+  document.getElementById('qr-svg').innerHTML=genQR(livreur+'-'+Date.now(),col);
   document.getElementById('modal-qr').classList.add('open');
 }
-function closeQR(){document.getElementById('modal-qr').classList.remove('open');}
-document.getElementById('modal-qr').addEventListener('click',function(e){if(e.target===this)closeQR();});
-function confirmerQR(id){
-  const f=document.createElement('form');
-  f.method='POST';f.action='/anja/qr/'+id;
+function confirmerGroupe(ids){
+  if(!confirm('Confirmer le paiement pour '+ids.length+' livraison(s) ?')) return;
+  const f=document.createElement('form');f.method='POST';f.action='/anja/qr_groupe';
+  ids.forEach(id=>{const i=document.createElement('input');i.type='hidden';i.name='ids';i.value=id;f.appendChild(i);});
   document.body.appendChild(f);f.submit();
 }
 function genQR(data,col){
@@ -421,87 +526,9 @@ function genQR(data,col){
   s+=`<rect x="0" y="${(n-3)*cs}" width="${3*cs}" height="${3*cs}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
   return s+'</svg>';
 }
+function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
 function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR');}
 tick();setInterval(tick,1000);
-
-// QR GROUPÉ PAR LIVREUR
-const COMMANDES_DATA = {{ commandes|tojson }};
-const LIVREUR_COLORS_MAP = {
-  'Mbola':'#1565C0','Patrick':'#2E7D32','Sarobidy Nomena':'#854F0B',
-  'Toky':'#4A148C','Solo':'#BF360C','Daniel':'#006064',
-  'Andry':'#0D1B3E','Ando':'#C62828'
-};
-
-function showQRGroupe(livreur){
-  const cmds = COMMANDES_DATA.filter(c => c.livreur===livreur && ['att','chg'].includes(c.statut));
-  const total = cmds.reduce((s,c) => s+c.total, 0);
-  const col = LIVREUR_COLORS_MAP[livreur] || '#0D1B3E';
-  const ini = livreur.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  const ids = cmds.map(c=>c.id);
-  
-  let rows = cmds.map(c=>`
-    <tr>
-      <td style="font-size:11px;padding:5px 8px;">${c.client}</td>
-      <td style="font-size:11px;padding:5px 8px;">${c.adresse||'—'}</td>
-      <td style="font-size:11px;padding:5px 8px;font-weight:800;color:#1B5E20;">${c.total.toLocaleString('fr-FR')} Ar</td>
-      <td style="font-size:10px;padding:5px 8px;color:#F57C00;">${c.statut==='chg'?'Chgt qté':''}</td>
-    </tr>`).join('');
-
-  document.getElementById('qr-groupe-content').innerHTML = `
-    <div style="text-align:center;margin-bottom:16px;">
-      <div style="width:54px;height:54px;border-radius:50%;background:${col}22;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:${col};margin:0 auto 8px;">${ini}</div>
-      <div style="font-size:18px;font-weight:800;color:#0D1B3E;">${livreur}</div>
-      <div style="font-size:22px;font-weight:800;color:#1B5E20;margin:8px 0;">${total.toLocaleString('fr-FR')} Ar</div>
-    </div>
-    <table style="width:100%;border-collapse:collapse;margin-bottom:14px;background:#f9f9f9;border-radius:8px;overflow:hidden;">
-      <thead><tr style="background:#0D1B3E;">
-        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Client</th>
-        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Lieu</th>
-        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Montant</th>
-        <th style="font-size:10px;color:#fff;padding:6px 8px;text-align:left;">Note</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <div style="text-align:center;margin-bottom:14px;">
-      <div id="qr-svg-groupe" style="width:130px;height:130px;border:2px solid #ddd;border-radius:10px;margin:0 auto;display:flex;align-items:center;justify-content:center;"></div>
-      <div style="font-size:11px;color:#888;margin-top:8px;">${livreur} scanne ce QR avec son téléphone<br>Il voit le total à remettre à Anja</div>
-    </div>
-    <div style="display:flex;gap:8px;justify-content:center;">
-      <button onclick="confirmerPaiementGroupe(${JSON.stringify(ids)},'${livreur}')" style="background:#2E7D32;color:#fff;border:none;padding:10px 20px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;">✓ Confirmer paiement reçu — ${total.toLocaleString('fr-FR')} Ar</button>
-      <button onclick="document.getElementById('modal-qr-groupe').classList.remove('open')" style="background:#fff;color:#555;border:1.5px solid #ddd;padding:10px 14px;border-radius:7px;cursor:pointer;">Fermer</button>
-    </div>`;
-  
-  document.getElementById('qr-svg-groupe').innerHTML = genQR(livreur+'-'+Date.now(), col);
-  document.getElementById('modal-qr-groupe').classList.add('open');
-}
-
-function confirmerPaiementGroupe(ids, livreur){
-  if(!confirm('Confirmer le paiement de ' + livreur + ' pour ' + ids.length + ' livraison(s) ?')) return;
-  const f = document.createElement('form');
-  f.method = 'POST';
-  f.action = '/anja/qr_groupe';
-  f.style.display = 'none';
-  ids.forEach(id => {
-    const inp = document.createElement('input');
-    inp.type = 'hidden';
-    inp.name = 'ids';
-    inp.value = id;
-    f.appendChild(inp);
-  });
-  document.body.appendChild(f);
-  f.submit();
-}
 </script>
-
-<!-- Modal QR Groupé -->
-<div class="modal-bg" id="modal-qr-groupe">
-<div class="modal" style="max-width:480px;">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-    <h2 style="margin:0;">📱 QR Paiement groupé</h2>
-    <button onclick="document.getElementById('modal-qr-groupe').classList.remove('open')" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888;">✕</button>
-  </div>
-  <div id="qr-groupe-content"></div>
-</div>
-</div>
 </body>
 </html>
